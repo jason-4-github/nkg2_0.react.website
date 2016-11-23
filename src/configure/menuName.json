@@ -1,0 +1,24 @@
+[
+  {
+    "optionText" : {
+      "Dashboard": "Dashboard",
+      "ICT_1": "ICT 1",
+      "ICT_2": "ICT 2",
+      "ICT_1_CV": "ICT 1 CV",
+      "ICT_2_CV": "ICT 2 CV",
+      "Transfer_CV": "Transfer CV",
+      "Buffer_CV": "Buffer CV",
+      "Router_CV": "Router CV",
+      "Change_Line": "Change Line"
+    }
+  },
+  {
+    "Dashboard":{
+      "OVERVIEW": "Overview",
+      "SUMMARY": "Summary",
+      "OUTPUT": "Output",
+      "DOWNTIME": "Downtime",
+      "ALARM": "Alarm"
+    }
+  }
+]
