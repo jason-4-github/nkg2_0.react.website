@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import _ from 'lodash';
+import { browserHistory } from 'react-router';
 
 import MenuName from '../configure/menuName.json';
 //import { OverViewContainer, SummaryContainer, OutPutContainer,
@@ -10,6 +11,8 @@ import SummaryContainer from './Dashboard/SummaryContainer';
 import OutPutContainer from './Dashboard/OutPutContainer';
 import DownTimeContainer from './Dashboard/DownTimeContainer';
 import AlarmContainer from './Dashboard/AlarmContainer';
+
+var tmpName = "Overview" ;
 
 const styles = {
   headline: {
@@ -29,9 +32,7 @@ const styles = {
 };
 
 const ChangeTabsContent = (props) => {
-  // return(
-  //    <OverViewContainer Data={props.TableData} />
-  // );
+
   switch (props.name) {
     case "Output":
       return(<OutPutContainer Data={props.TableData} />);
@@ -44,7 +45,7 @@ const ChangeTabsContent = (props) => {
     case "Overview":
       return(<OverViewContainer Data={props.TableData} />);
     default:
-      return(<div/>);
+      return(<div />);
   }
 };
 
@@ -56,12 +57,17 @@ const Options = (props) => {
         <Tab
           key={ j }
           label={ innervalue }
-          style={ styles.headColor } >
+          style={ styles.headColor }
+          onActive={() =>{
+            browserHistory.push( '/Dashboard/'+innervalue );
+            tmpName = innervalue;
+          }} >
           <div style={ styles.contentStyle } >
             <h2 style={ styles.headline } > Dashboard - {innervalue} </h2>
           </div>
           <div>
-            <ChangeTabsContent TableData={props.TableData} name={innervalue} />
+          {tmpName === innervalue ?
+            <ChangeTabsContent TableData={props.TableData} name={tmpName} /> : <div />}
           </div>
         </Tab>
       );
@@ -78,7 +84,7 @@ class TabMenu extends React.Component{
   render() {
     return(
       <div>
-        <Options TableData={this.props.TableData} />
+        <Options TableData={this.props.TableData}/>
       </div>
     );
   }

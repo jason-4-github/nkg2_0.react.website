@@ -6,14 +6,18 @@ import { getAllInfo } from '../actions';
 
 class TabsContent extends React.Component {
 
-  componentDidMount() {
-    const { getAllInfo } = this.props;
+  componentWillMount(){
+    let { getAllInfo } = this.props;
     getAllInfo();
   }
 
+  componentWillUpdate() {
+    let { getAllInfo } = this.props;
+    getAllInfo();
+  }
   render(){
     return(
-      <TabMenu TableData={ this.props } />
+      <TabMenu TableData={ this.props.data } />
     );
   }
 }

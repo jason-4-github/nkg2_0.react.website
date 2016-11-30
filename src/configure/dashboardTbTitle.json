@@ -1,0 +1,81 @@
+[
+  {
+    "summaryData" : {
+      "No": "No",
+      "MachineName": "Machine Name",
+      "MachineTime": "Machine Time",
+      "IdleTime": "Idle Time",
+      "AlarmTime": "Alarm Time",
+      "RecordTime": "Record Time",
+      "InputCount": "Input Count",
+      "OutputOKCount": "Output OK Count",
+      "OutputNGCount": "Output NG Count"
+    },
+    "summaryCard" : {
+      "ICT1": "ICT1",
+      "ICT2": "ICT2",
+      "ICT1CV": "ICT1 CV",
+      "ICT2CV": "ICT2 CV",
+      "TransferCV": "Transfer CV",
+      "BufferCV": "Buffer CV",
+      "RouterCV": "Router CV"
+    },
+    "summaryInformation" : {
+      "Status": "Status",
+      "Time": "Time",
+      "LineName": "Line Name"
+    },
+    "summaryProduct" : {
+      "ActualInput": "Actual Input",
+      "ActualOuput": "ActualOuput",
+      "NGCount": "NG Count",
+      "YieldRate": "Yield Rate"
+    }
+  },
+  {
+    "overviewInformation" : {
+      "Status": "Status",
+      "Time": "Time",
+      "LineName": "Line Name",
+      "ActualOutput": "Actual Output"
+    },
+    "overviewCard" : {
+      "ICT1": "ICT1",
+      "ICT2": "ICT2",
+      "ICT1CV": "ICT1 CV",
+      "ICT2CV": "ICT2 CV",
+      "TransferCV": "Transfer CV",
+      "BufferCV": "Buffer CV",
+      "RouterCV": "Router CV"
+    },
+    "overviewData" : {
+      "No": "No",
+      "MachineName": "Machine Name",
+      "ErrorCode": "Error Code",
+      "Description": "Description"
+    },
+  },
+  {
+    "outputData" : {
+      "No": "No",
+      "Date": "Date",
+      "Output": "Output",
+      "YieldRate": "YieldRate"
+    },
+    "downtimeData" : {
+      "No": "No",
+      "MchineName": "Machine Name",
+      "Downtime": "Downtime",
+    },
+    "Alarm" : {
+      "No": "No",
+      "MachineName": "Machine Name",
+      "AlarmCode": "Alarm Code",
+      "Description": "Desciption",
+      "Count": "Count",
+      "AlarmTime": "Alarm Time",
+      "IdleTime": "Idle Time",
+      "TotalTime": "TotalTime"
+    }
+  }
+]

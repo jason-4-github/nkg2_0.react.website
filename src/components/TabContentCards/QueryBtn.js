@@ -11,9 +11,8 @@ const Styles = {
 class QueryBtn extends React.Component{
 
   Test(event){
-    console.log(1111)
     console.log(this.props)
-    console.log(2222)
+    console.log(this.state)
   }
 
   render(){

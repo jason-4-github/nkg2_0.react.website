@@ -27,6 +27,7 @@ class DateSelect extends React.Component {
     super(props);
     this.state={
       dateData: 'nothing to catch',
+      RadioData: 'choose filter not yet'
     };
   };
 
@@ -37,15 +38,14 @@ class DateSelect extends React.Component {
     this.setState({
       dateData: formatdate ,
     });
+    const {GetFilterData,DatePickerData} = this.props;
     if(this.props.TwoOptions === true ){
-       const { GetFilterData, DatePickerData } = this.props;
        GetFilterData();
        DatePickerData(this.state.dateData);
     }
   };
 
   render() {
-
     return (
       <Card style={ Styles.cardStyle }>
         <CardTitle title="History" />
@@ -60,7 +60,7 @@ class DateSelect extends React.Component {
           <BtnShow
             Querybtn={ this.props.btn }
             date={ this.state.dateData }
-            filter={ this.props.Data } />
+            filter={ this.props.RadioData } />
         </CardText>
       </Card>
     );

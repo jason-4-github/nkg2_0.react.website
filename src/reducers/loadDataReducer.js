@@ -2,20 +2,17 @@ import { GET_TABLEDATA_REQUEST, GET_TABLEDATA_SUCCESS,
          GET_TABLEDATA_FAILURE } from '../constants/actionTypes';
 
 const initialState = {
-  id: '',
-  Name: '',
-  Status: '',
+  data: {},
   isNow: "tableInfo"
 };
 
 const TableInfo = ( state = initialState , action ) => {
   switch(action.type){
     case GET_TABLEDATA_REQUEST :
-      console.log("enter Reque")
       return {
         ...action.TableInfo.reduce((obj, tableInfo) => {
-          obj[tableInfo.id] = tableInfo
-          return obj
+          state.data[tableInfo.id] = tableInfo;
+          return {...state}
         }, {})
       };
     case GET_TABLEDATA_SUCCESS:
@@ -29,7 +26,9 @@ const TableInfo = ( state = initialState , action ) => {
         order: 3
       };
     default:
-      return state;
+      return {
+        ...state,
+      };
   }
 };
 

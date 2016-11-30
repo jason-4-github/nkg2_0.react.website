@@ -1,12 +1,4 @@
-import { CATCH_RADIOBOX_DATA, CATCH_DATEPCIKER_DATA,
-          THROW_FILTER_DATA, GET_FILTER_DATA } from '../constants/actionTypes';
-
-export const RadioBoxData = (Data) => (dispatch, getState) => {
-  dispatch({
-    type: CATCH_RADIOBOX_DATA,
-    Data
-  });
-};
+import { CATCH_DATEPCIKER_DATA, THROW_FILTER_DATA, GET_FILTER_DATA } from '../constants/actionTypes';
 
 export const DatePickerData = (DateData) => (dispatch, getState) => {
   dispatch({
@@ -15,18 +7,18 @@ export const DatePickerData = (DateData) => (dispatch, getState) => {
   });
 };
 
-export const ThrowFilterData = (Data) => (dispatch) => {
+export const ThrowFilterData = (RadioData) => (dispatch) => {
   dispatch({
     type: THROW_FILTER_DATA,
-    Data
+    RadioData
   });
 };
 
-export const GetFilterData = (Data) => ( dispatch, getState ) => {
+export const GetFilterData = () => ( dispatch, getState ) => {
   const { DashboardBtn } = getState();
   let TempData = (DashboardBtn.Data === undefined ? "Day" : DashboardBtn.Data);
   dispatch({
     type: GET_FILTER_DATA,
-    Data: TempData
+    RadioData: TempData
   });
 };

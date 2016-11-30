@@ -25,10 +25,10 @@ class FilterChoose extends React.Component{
   };
 
   handleRadioValueChange(event, value){
-    const { ThrowFilterData } = this.props;
     this.setState({
       radioValue: value
     });
+    const { ThrowFilterData } = this.props;
     ThrowFilterData(value);
   };
 
@@ -40,8 +40,8 @@ class FilterChoose extends React.Component{
         <CardText>
           <RadioButtonGroup
             name="shipSpeed"
-            defaultSelected="Day"
             style={{display: 'flex'}}
+            defaultSelected="null"
             onChange={ this.handleRadioValueChange.bind(this) }
           >
             <RadioButton
@@ -69,7 +69,6 @@ class FilterChoose extends React.Component{
 
 const mapStateToProps = (state) => {
   return{
-    ...state.LoadData,
     ...state.DashboardBtn
   };
 };

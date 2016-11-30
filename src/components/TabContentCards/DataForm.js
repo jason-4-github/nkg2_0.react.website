@@ -14,14 +14,18 @@ const Styles={
 
 const DataContent=(props) => {
   var cons = [];
-  _.map(props.Data, function(value, i){
-    cons.push(
-      <TableRow key={i} >
-        <TableRowColumn>{value.id}</TableRowColumn>
-        <TableRowColumn>{value.Name}</TableRowColumn>
-        <TableRowColumn>{value.Status}</TableRowColumn>
-      </TableRow>
-    );
+  _.map(props.Data.Data , function(value){
+    if(value.id !== undefined ){
+      cons.push(
+        <TableRow key={value.id} >
+          <TableRowColumn>{value.id}</TableRowColumn>
+          <TableRowColumn>{value.Name}</TableRowColumn>
+          <TableRowColumn>{value.Status}</TableRowColumn>
+        </TableRow>
+      );
+    }else{
+      console.log(value);
+    }
   });
 
   return(
@@ -45,10 +49,9 @@ const DataContent=(props) => {
 };
 
 class DataForm extends React.Component{
-
   render(){
     return(
-      <DataContent Data={this.props.Data}/>
+      <DataContent Data={this.props}/>
     );
   }
 };

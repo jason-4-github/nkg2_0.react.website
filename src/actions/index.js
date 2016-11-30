@@ -10,17 +10,6 @@ export const getAllInfo = () => (dispatch) => {
   MiddleFun.DataToTable( TableInfo => {
     dispatch(getTableInfo(TableInfo))
   })
-  // console.log(111);
-  // dispatch({
-  //   type:"GET_TABLEDATA_REQUEST",
-  //   TableInfo: [
-  //     {
-  //       Name:"iPad 4 Mini",
-  //       Status:"500.01",
-  //       id:1
-  //     }
-  //   ]
-  // })
 };
 
 export const getTableReq = () => ({

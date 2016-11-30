@@ -1,13 +1,13 @@
 import React from 'react';
-import _ from 'lodash';
 import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux'
 
 // import { Charts, DataForm, DateSelect,
 //           QueryBtn } from '../../components/TabContentCards';
 import Charts from '../../components/TabContentCards/Charts';
 import DataForm from '../../components/TabContentCards/DataForm';
 import DateSelect from '../../components/TabContentCards/DateSelect';
-import { DatePickerData } from '../../actions/DashboardBtnAction';
+import { PostToApi, GetFromApi } from '../../actions/contactApi';
 
 const AlarmContent = (props) => {
   return(
@@ -20,6 +20,15 @@ const AlarmContent = (props) => {
 };
 
 class AlarmContainer extends React.Component{
+
+  componentDidMount() {
+    // console.log("AlarmContainer componentDidMount")
+    // console.log(this.props)
+    // const { PostToApi } = this.props;
+    // PostToApi('alarm', 'wd_ga', "GET_INF01");
+    // //GetFromApi('summary','information','wd_ga');
+  }
+
   render(){
     return(
       <AlarmContent Data={this.props.Data} isType={this.props.isType}/>
@@ -29,11 +38,11 @@ class AlarmContainer extends React.Component{
 
 const mapStateToProps = (state) => {
   return{
-    ...state.DashboardBtn
+    ...state.CheckData,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {DatePickerData}
+  {PostToApi, GetFromApi}
 )(AlarmContainer);

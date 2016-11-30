@@ -36,7 +36,7 @@ const Options = () => {
           key={ i }
           style={ Styles.menuWordColor }
           primaryText={ innervalue }
-          onClick={ () => browserHistory.push( "/WD_GA/"+i ) } />
+          onClick={ () => browserHistory.push( '/' + i ) } />
       )
     });
   });
@@ -55,7 +55,10 @@ const Options = () => {
 class SideMenu extends React.Component{
   render(){
     return(
-      <Options />
+      <div>
+      <Options/>
+      
+      </div>
     );
   }
 };
