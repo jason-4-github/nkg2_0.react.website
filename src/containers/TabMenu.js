@@ -59,7 +59,7 @@ const Options = (props) => {
           label={ innervalue }
           style={ styles.headColor }
           onActive={() =>{
-            browserHistory.push( '/Dashboard/'+innervalue );
+            browserHistory.push( '/Dashboard/'+innervalue +'/www' );
             tmpName = innervalue;
           }} >
           <div style={ styles.contentStyle } >

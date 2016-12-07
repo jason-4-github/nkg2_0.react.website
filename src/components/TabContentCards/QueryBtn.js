@@ -1,5 +1,8 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import { connect } from 'react-redux';
+
+import {PostToApi} from '../../actions/contactApi';
 
 const Styles = {
   btnStyle:{
@@ -11,8 +14,32 @@ const Styles = {
 class QueryBtn extends React.Component{
 
   Test(event){
+    const {PostToApi, tapName, date, RadioData} = this.props;
     console.log(this.props)
-    console.log(this.state)
+    let outputTransNum;
+    switch (RadioData) {
+      case 'Hour':
+        outputTransNum = '0';
+        break;
+      case 'Day':
+        outputTransNum = '1';
+        break;
+      case 'Month':
+        outputTransNum = '2';
+        break;
+      case 'Year':
+        outputTransNum = '3';
+        break;
+      default:
+        outputTransNum = '1';
+    }
+
+    if(tapName === 'output'){
+      PostToApi(tapName,'wd_ga', outputTransNum, date);
+    }else{
+      PostToApi(tapName,'wd_ga', '', date);
+    }
+
   }
 
   render(){
@@ -29,4 +56,14 @@ class QueryBtn extends React.Component{
   }
 };
 
-export default QueryBtn;
+const mapStateToProps = (state) => {
+  return{
+    ...state.DashboardBtn,
+    ...state.ChartContent
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {PostToApi}
+)(QueryBtn);

@@ -1,35 +1,10 @@
 import React from 'react';
 import { ComposedChart, Line, Bar, XAxis, ResponsiveContainer,
-          YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie } from 'recharts';
-
+          YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie,Cell } from 'recharts';
+import _ from 'lodash';
 import {Card, CardText} from 'material-ui/Card';
 
-const data = [{name: '1', uv: 590, pv: 800, amt: 1400},
-              {name: '2', uv: 868, pv: 967, amt: 1506},
-              {name: '3', uv: 1397, pv: 1098, amt: 989},
-              {name: '4', uv: 1480, pv: 1200, amt: 1228},
-              {name: '5', uv: 1520, pv: 1108, amt: 1100},
-              {name: '6', uv: 1520, pv: 1108, amt: 1100},
-              {name: '7', uv: 1520, pv: 1108, amt: 1100},
-              {name: '8', uv: 1520, pv: 1108, amt: 1100},
-              {name: '9', uv: 1520, pv: 1108, amt: 1100},
-              {name: '10', uv: 1520, pv: 1108, amt: 1100},
-              {name: '11', uv: 1520, pv: 1108, amt: 1100},
-              {name: '12', uv: 1520, pv: 1108, amt: 1100},
-              {name: '13', uv: 1520, pv: 1108, amt: 1100},
-              {name: '14', uv: 1520, pv: 1108, amt: 1100},
-              {name: '15', uv: 1520, pv: 1108, amt: 1100},
-              {name: '16', uv: 1520, pv: 1108, amt: 1100},
-              {name: '17', uv: 1400, pv: 680, amt: 1700}
-            ];
-
-const data2 = [{name: 'Page A', value: 590 },
-              {name: 'Page B', value: 868 },
-              {name: 'Page C', value: 1397 },
-              {name: 'Page D', value: 1480 },
-              {name: 'Page E', value: 1520 },
-              {name: 'Page F', value: 1400 }
-            ];
+import {formatFloat} from '../../configure/commonFun';
 
 const Styles = {
   width: 600,
@@ -46,8 +21,8 @@ const CheckTabs = ( props ) => {
   switch (props.pageName) {
     case "Output":
       return (<Output data={props.data} />) ;
-      case "Downtime":
-      return (<Downtime data={props.data2} />) ;
+    case "Downtime":
+      return (<Downtime data={props.data} />) ;
     case "Alarm":
       return (<Alarm data={props.data} />) ;
     default:
@@ -56,27 +31,78 @@ const CheckTabs = ( props ) => {
 };
 
 const Output = (data) => {
+  let drawData = [] , innerObject = {};
+  _.map(data,function(value,j){
+    _.map(value,function(innervalue,i){
+      innerObject.name = i;
+      innerObject.Output = innervalue.OutputOKCount;
+      innerObject.YieldRate = formatFloat(((innervalue.OutputOKCount /
+            (innervalue.OutputNGCount + innervalue.OutputOKCount)) * 100), 2);
+      drawData.push(innerObject);
+      innerObject = {};
+    });
+  });
+
+  let putZero = 31 - drawData.length ;
+  _.times(putZero, function(i){
+    innerObject.name = i + drawData.length ;
+    innerObject.Output = 0 ;
+    innerObject.YieldRate = 0 ;
+    drawData.push(innerObject);
+    innerObject = {};
+  });
+
   return(
-    <ResponsiveContainer width={500} minHeight={300}>
-      <ComposedChart width={Styles.width} height={Styles.height} data={data.data}
+    <ResponsiveContainer width="100%" minHeight={300}>
+      <ComposedChart width={Styles.width} height={Styles.height} data={drawData}
           margin={Styles.margin}>
-        <XAxis dataKey="name" label="Pages"/>
-        <YAxis label="Index"/>
+        <XAxis dataKey="no" />
+        <YAxis yAxisId="left" label="Total-Output" orientation="left" domain={[0,'dataMax+1000']}/>
+        <YAxis yAxisId="right" label="Yield-Rate(%)" orientation="right" domain={[0,100]}/>
         <Tooltip/>
         <Legend/>
         <CartesianGrid stroke='#f5f5f5'/>
-        <Bar dataKey='pv' barCategoryGap={'90%'} fill='rgb(194, 53, 49)'/>
-        <Line type='monotone' dataKey='uv' stroke='rgb(47, 69, 84)'/>
+        <Bar yAxisId="left" dataKey='Output' barCategoryGap={'90%'} fill='rgb(194, 53, 49)'/>
+        <Line yAxisId="right"  dataKey='YieldRate' stroke='rgb(47, 69, 84)'/>
       </ComposedChart>
     </ResponsiveContainer>
   );
 };
 
 const Downtime = (data) => {
+  let COLORS = ['#91c7ae', '#c23531', '#2f4554', '#6aa5ca', '#d48265', '#5986ae', '#61a0a8', '#749f83'];
+  let drawData = [], innerObject = {}, test = {} ;
+  let MachineName = ['Router CV','Buffer CV','Transfer CV','ICTA CV','ICTA',
+                      'ICTB CV','ICTB','ICTA Robot','ICTB Robot'];
+
+  _.map(data,function(value,j){
+    _.map(value,function(innervalue,i){
+      innerObject.name = MachineName[i];
+      innerObject.value = innervalue.AlarmTime;
+      test.name = MachineName[i];
+      drawData.push(innerObject);
+      innerObject = {};
+    });
+  });
+  //need to modify
+  function outputCustomLabel({ name }){ return (name); };
+
+  // <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
+  // {`${(percent * 100).toFixed(0)}%`}
+  // </text>
   return(
-  <ResponsiveContainer width={500} minHeight={300}>
-    <PieChart width={400} height={400}>
-      <Pie data={data.data} cx={200} cy={150} innerRadius={0} outerRadius={100} fill="#82ca9d"/>
+  <ResponsiveContainer width="100%" minHeight={400}>
+    <PieChart width={800} height={400} >
+      <Pie  data={drawData}
+            cx={200}
+            cy={150}
+            innerRadius={0}
+            outerRadius={100}
+            fill="#82ca9d"
+            label={outputCustomLabel}>
+      {drawData.map((entry, index) =>
+          <Cell key={'cell'+index} fill={COLORS[index % COLORS.length]}/>)}
+      </Pie>
       <Tooltip/>
     </PieChart>
   </ResponsiveContainer>
@@ -84,18 +110,30 @@ const Downtime = (data) => {
 };
 
 const Alarm = (data) => {
+
+  let drawData = [] , innerObject = {};
+  _.map(data.data,function(value,j){
+      innerObject.name = j+1;
+      innerObject.Count = value.AlarmCount;
+      innerObject.AlarmTime = value.AlarmTime;
+      innerObject.IdleTime = value.RecoverTime;
+      drawData.push(innerObject);
+      innerObject = {};
+  });
+
   return(
-    <ResponsiveContainer width={500} minHeight={300}>
-      <ComposedChart width={Styles.width} height={Styles.height} data={data.data}
+    <ResponsiveContainer width="100%" minHeight={300}>
+      <ComposedChart width={Styles.width} height={Styles.height} data={drawData}
           margin={Styles.margin}>
-        <XAxis dataKey="name" label="Pages"/>
-        <YAxis label="Index"/>
+        <XAxis dataKey="name" />
+        <YAxis yAxisId="left" label="Total-Output" orientation="left" />
+        <YAxis yAxisId="right" label="Yield-Rate(%)" orientation="right" />
         <Tooltip/>
         <Legend/>
         <CartesianGrid stroke='#f5f5f5'/>
-        <Bar dataKey='pv' barCategoryGap={'90%'} fill='rgb(194, 53, 49)'/>
-        <Bar dataKey='uv' barCategoryGap={'90%'} fill='rgb(47, 69, 84)'/>
-        <Line type='monotone' dataKey='uv' stroke='rgb(47, 69, 84)'/>
+        <Bar yAxisId="left" dataKey='AlarmTime' barCategoryGap={'90%'} fill='rgb(194, 53, 49)'/>
+        <Bar yAxisId="left" dataKey='IdleTime' barCategoryGap={'90%'} fill='rgb(47, 69, 84)'/>
+        <Line yAxisId="right" type='linear' dataKey='Count' stroke='rgb(47, 69, 84)'/>
       </ComposedChart>
     </ResponsiveContainer>
   );
@@ -104,10 +142,11 @@ const Alarm = (data) => {
 class Charts extends React.Component{
 
   render(){
+    console.log("jjjjjjjjjjjjjjjjjjjjj",this.props.data)
     return(
     <Card style={{width:'90%',marginTop:'20px'}}>
       <CardText>
-        <CheckTabs pageName={ this.props.PageName } data={data} data2={data2} />
+        <CheckTabs pageName={ this.props.PageName } data={this.props.data} />
       </CardText>
     </Card>);
   }

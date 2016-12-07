@@ -16,9 +16,10 @@ const TableInfo = ( state = initialState , action ) => {
         }, {})
       };
     case GET_TABLEDATA_SUCCESS:
+    console.log("into table success")
       return {
         ...state,
-        order: 2
+        ...action
       };
     case GET_TABLEDATA_FAILURE:
       return {

@@ -14,9 +14,8 @@ export const ThrowFilterData = (RadioData) => (dispatch) => {
   });
 };
 
-export const GetFilterData = () => ( dispatch, getState ) => {
-  const { DashboardBtn } = getState();
-  let TempData = (DashboardBtn.Data === undefined ? "Day" : DashboardBtn.Data);
+export const GetFilterData = (lastData='') => ( dispatch ) => {
+  let TempData = (lastData === '' ? "Day" : lastData);
   dispatch({
     type: GET_FILTER_DATA,
     RadioData: TempData

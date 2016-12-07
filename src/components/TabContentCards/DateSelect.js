@@ -16,9 +16,10 @@ const Styles={
 const BtnShow=(props) => {
   switch (props.Querybtn) {
     case true:
-      return(<QueryBtn date={ props.date } />);
+      return(<QueryBtn date={ props.date } tapName={ props.tapName } />);
     default:
-      return(<QueryBtn date={ props.date } filter={ props.filter }/>);
+      return(<QueryBtn date={ props.date } filter={ props.filter }
+              tapName={ props.tapName } />);
   }
 };
 
@@ -40,7 +41,9 @@ class DateSelect extends React.Component {
     });
     const {GetFilterData,DatePickerData} = this.props;
     if(this.props.TwoOptions === true ){
-       GetFilterData();
+       GetFilterData(this.props.RadioData);
+       DatePickerData(this.state.dateData);
+    }else if(this.props.TwoOptions === false ){
        DatePickerData(this.state.dateData);
     }
   };
@@ -60,7 +63,8 @@ class DateSelect extends React.Component {
           <BtnShow
             Querybtn={ this.props.btn }
             date={ this.state.dateData }
-            filter={ this.props.RadioData } />
+            filter={ this.props.RadioData }
+            tapName={this.props.tapName} />
         </CardText>
       </Card>
     );

@@ -22,7 +22,7 @@ class TabMenu0 extends React.Component {
         <IconButton
           iconStyle={styles.largeIcon}
           style={styles.large}
-          onClick={() =>{ browserHistory.push( '/Dashboard' )}}
+          onClick={() =>{ browserHistory.push( '/Dashboard/www' )}}
         >
           <ActionHome />
         </IconButton>

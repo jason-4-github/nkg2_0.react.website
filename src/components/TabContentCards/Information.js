@@ -7,22 +7,45 @@ import {
   TableRow,
   TableRowColumn } from 'material-ui/Table';
 
-const ExData={
-  Status: "Connected",
-  Time: "Today",
-  LineName: "WD GA",
-  Actual_Output: "448"
-};
+const InfoTitle = ['Status','Time','Line Name','Actial Output'];
 
-const Content = () => {
-  var CardsContent = [];
-  _.map(ExData, function(value, i){
-    CardsContent.push(
-      <TableRow key={i}>
-        <TableRowColumn>{i} :</TableRowColumn>
-        <TableRowColumn>{value}</TableRowColumn>
-      </TableRow> );
+const Content = (props) => {
+
+  let CardsContent = [];
+  let infoContent = [];
+  let num = 0 ;
+  let status,time,lineName= 'wd_ga',actialOutput
+
+  _.map(props.InfoData,function(value){
+    status = (value !== undefined ? 'connect' : 'not connect');
+    _.map(value,function(innervalue, i){
+      switch (i) {
+        case 'DateYMD':
+          time = innervalue ;
+          break ;
+        case 'OutputOKCount':
+          actialOutput = innervalue ;
+          break ;
+        default:
+          break ;
+      }
+    })
   });
+  infoContent.push(status);
+  infoContent.push(time);
+  infoContent.push(lineName);
+  infoContent.push(actialOutput);
+
+  _.map(InfoTitle,function(value){
+    CardsContent.push(
+      <TableRow key={value}>
+        <TableRowColumn>{value} :</TableRowColumn>
+        <TableRowColumn>{infoContent[num]}</TableRowColumn>
+      </TableRow>
+    );
+    num += 1 ;
+  });
+  num = 0 ;
 
   return(
     <Card style={{width:'43%'}}>
@@ -42,7 +65,7 @@ const Content = () => {
 class Information extends React.Component{
   render(){
     return(
-      <Content />
+      <Content InfoData={ this.props.InfoData } />
     );
   }
 };

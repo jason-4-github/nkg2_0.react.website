@@ -7,14 +7,16 @@ import { connect } from 'react-redux';
 import Charts from '../../components/TabContentCards/Charts';
 import DataForm from '../../components/TabContentCards/DataForm';
 import DateSelect from '../../components/TabContentCards/DateSelect';
-import { PostToApi, GetFromApi } from '../../actions/contactApi';
+import { PostToApi } from '../../actions/contactApi';
 
 const AlarmContent = (props) => {
+  console.log("nnnnnnnnnnnnnnnnnnnnnm",props)
   return(
     <div>
-      <DateSelect btn={ true } isType={ props.isType }/>
-      <Charts PageName={"Alarm"}/>
-      <DataForm Data={ props.Data }/>
+      <DateSelect btn={ true } isType={ props.isType }
+                  TwoOptions={props.TwoOptions} tapName={'alarm'}/>
+      <Charts PageName={"Alarm"} data={ props.chartData }/>
+      <DataForm Data={ props.chartData } tapName={'alarm'} />
     </div>
   );
 };
@@ -24,25 +26,30 @@ class AlarmContainer extends React.Component{
   componentDidMount() {
     // console.log("AlarmContainer componentDidMount")
     // console.log(this.props)
-    // const { PostToApi } = this.props;
-    // PostToApi('alarm', 'wd_ga', "GET_INF01");
+    const { PostToApi } = this.props;
+    PostToApi('alarm', 'wd_ga');
     // //GetFromApi('summary','information','wd_ga');
   }
 
   render(){
+    console.log("fffffffffffffffffff",this.props)
     return(
-      <AlarmContent Data={this.props.Data} isType={this.props.isType}/>
+      <AlarmContent
+        Data={this.props.Data}
+        isType={this.props.isType}
+        chartData={this.props.chartAData}
+        TwoOptions={false} />
     );
   }
 };
 
 const mapStateToProps = (state) => {
   return{
-    ...state.CheckData,
+    ...state.ChartContent,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {PostToApi, GetFromApi}
+  {PostToApi}
 )(AlarmContainer);

@@ -15,12 +15,12 @@ const OverViewContent = (props) => {
   return(
     <div>
       <div style={{display: 'flex'}}>
-        <Information />
+        <Information InfoData={ props.Data.InfoData} />
         <div style={{width: '4%'}}></div>
-        <Information2 />
+        <Information2 InfoData={ props.Data.InfoData} />
       </div>
       <ImgCard />
-      <DataForm Data={ props.Data } />
+      <DataForm Data={ props.Data.Data } />
     </div>
   );
 };
@@ -28,12 +28,13 @@ const OverViewContent = (props) => {
 class OverViewContainer extends React.Component{
   componentDidMount(){
     const { GetFromApi } = this.props;
-    GetFromApi('overview','information','wd_ga');
+    GetFromApi('overview','wd_ga','information');
+    //GetFromApi('overview','wd_ga');
   }
 
   render(){
     return(
-      <OverViewContent Data={this.props.Data}/>
+      <OverViewContent Data={this.props}/>
     );
   }
 };

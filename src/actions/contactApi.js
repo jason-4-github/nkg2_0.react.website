@@ -1,4 +1,6 @@
-import fetch from 'isomorphic-fetch';
+import 'isomorphic-fetch';
+import _ from 'lodash';
+import moment from 'moment';
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -14,44 +16,54 @@ function parseJSON(response) {
   return response.json()
 }
 
-const DispatchFun = (actionType, data='', statue) => (dispatch, getState) => {
-  console.log(actionType)
-  if( statue === true ){
-    dispatch({
-      type: actionType,
-      resData: data
-    })
-  }else{
-    dispatch({
-      type: actionType,
-      resData: 'failure to show'
-    });
-  }
-}
-
-export const PostToApi = (tabsName, lineName, outputParam='', actionType) =>{
+export const PostToApi = (tabsName, lineName, outputParam='', choseDate='') =>{
 
   let Data;
   switch(tabsName){
     case 'output':
-    //data:time
-      Data = {time:'2016-11-23 00:00:00'};
+      //data:time
+      let finalTime='', newTime=[] ;
+      if(choseDate !== '') {
+        newTime = choseDate.split('.');
+        _.map(newTime,function(value,i){
+          finalTime += '-'+ value ;
+        });
+        finalTime = finalTime.slice(1);
+      }else{
+        finalTime = moment().format('YYYY-MM-DD')
+      }
+
+      Data = {time: finalTime + ' 00:00:00'};
       break;
     case 'downtime':
-    //data:date
-      Data = {date:'2016.11.24'};
+      //data:date
+      if(choseDate !== '') {
+        Data = {date:choseDate};
+      }else{
+        let now = moment().format('YYYY.MM.DD')
+        Data = { date: now };
+      }
       break;
     case 'alarm':
-    //data{startTime,endTime}
-      let start = '2016.11.23 00:00:00';
-      let end   = '2016.11.23 23:59:59';
+      //data{startTime,endTime}
+      let start, end ;
+
+      if(choseDate !== '') {
+        start = choseDate + ' 00:00:00';
+        end   = choseDate + ' 23:59:59';
+      }else{
+        let now = moment().format('YYYY.MM.DD')
+        start = now + ' 00:00:00';
+        end   = now + ' 23:59:59';
+      }
       Data = {startTime: start, endTime: end};
       break;
     default:
-      Data = '2016.11.24';
+      Data = moment().format('YYYY.MM.DD');
   }
 
   let url;
+  let actionName = 'GET_CHARTDATA_';
   if(tabsName === 'output'){
     url = 'http://c5096w7.calcomp.co.th:3000/apis/dashboard/'+
             tabsName+ '/'+ lineName+ '/'+ outputParam;
@@ -59,6 +71,7 @@ export const PostToApi = (tabsName, lineName, outputParam='', actionType) =>{
     url = 'http://c5096w7.calcomp.co.th:3000/apis/dashboard/'+ tabsName+ '/'+ lineName;
   }
 
+return dispatch => {
   fetch(url,{
     method: 'POST',
     headers: {'Accept': 'application/json',
@@ -68,43 +81,83 @@ export const PostToApi = (tabsName, lineName, outputParam='', actionType) =>{
     .then(checkStatus)
     .then(parseJSON)
     .then(function(data){
-      let transTypeName = actionType+ "_SUCCESS";
       console.log("request success",data)
-       DispatchFun(transTypeName, data, true);
-
+      actionName = actionName.concat('SUCCESS')
+      if(tabsName === 'output'){
+      dispatch({
+        type: actionName,
+        chartOData: data
+      });
+    }else if(tabsName === 'downtime'){
+      dispatch({
+        type: actionName,
+        chartDData: data
+      });
+    }else if(tabsName === 'alarm'){
+      dispatch({
+        type: actionName,
+        chartAData: data
+      });
+    }
     }).catch(function(error) {
       console.log('request failed', error)
-      let transTypeName2 = actionType+ "_FAILURE";
-       DispatchFun(transTypeName2, false);
-
+      actionName = actionName.concat('FAILURE')
+      dispatch({
+        type: actionName,
+      });
     });
+  };
 };
 
-export const GetFromApi = (tabsName, typeName='', lineName) =>{
-  let url ;
+export const GetFromApi = (tabsName, lineName, typeName='') =>{
+  let url = '';
+  let actionName = '';
 
   if(typeName === ''){
     url = 'http://c5096w7.calcomp.co.th:3000/apis/dashboard/'+
             tabsName+ '/'+ lineName;
+            actionName = 'GET_TABLEDATA_';
+
   }else{
     url = 'http://c5096w7.calcomp.co.th:3000/apis/dashboard/'+
             tabsName+ '/'+ typeName+ '/'+ lineName;
+    actionName = 'GET_INFO1_';
   }
 
-  fetch(url,{
-    method: 'GET',
-    headers: {'Content-Type': 'application/json'}
-  })
-    .then(checkStatus)
-    .then(parseJSON)
-    .then((data)=> dispatch =>{
-       console.log("Get Success",data)
-       dispatch({
-         type: "GET_INFO1_SUCCESS",
-         resData: data
-       })
+  return dispatch => {
+    fetch(url,{
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
     })
-    .catch(function(error) {
-      console.log("Get failure",error)
-    });
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(function(data){
+         console.log("Get Success",data)
+         actionName = actionName.concat('SUCCESS')
+         if(typeName === ''){
+           dispatch({
+             type: actionName,
+             tableData: data
+           });
+         }else{
+           dispatch({
+             type: actionName,
+             InfoData: data
+           });
+         }
+      })
+      .catch(function(error) {
+        console.log("Get failure",error)
+        actionName = actionName.concat('FAILURE')
+        if(typeName === ''){
+          dispatch({
+            type: actionName,
+          });
+        }else{
+          dispatch({
+            type: actionName,
+          });
+        }
+      });
+  };
 };

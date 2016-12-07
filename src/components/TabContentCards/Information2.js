@@ -7,26 +7,55 @@ import {
   TableRow,
   TableRowColumn } from 'material-ui/Table';
 
-const ExData={
-  Status: "Connected",
-  Time: "Today",
-  LineName: "WD GA",
-  Actual_Output: "448"
-};
+import {formatFloat} from '../../configure/commonFun';
 
-const Content = () => {
-  var CardsContent = [];
-  _.map(ExData, function(value, i){
-    CardsContent.push(
-      <TableRow key={i}>
-        <TableRowColumn>{i} :</TableRowColumn>
-        <TableRowColumn>{value}</TableRowColumn>
-      </TableRow> );
+const productTitle = ['Actual Iutput','Actual Output','NG Count','Yield Rate'];
+
+const Content = (props) => {
+  let CardsContent = [];
+  let productContent = [];
+  let num = 0 ;
+  let actualInput,ngCount,yieldRate,actualOutput
+
+  _.map(props.InfoData,function(value){
+    _.map(value,function(innervalue, i){
+      switch (i) {
+        case 'InputCount':
+          actualInput = innervalue ;
+          break ;
+        case 'OutputOKCount':
+          actualOutput = innervalue ;
+          break ;
+        case 'OutputNGCount':
+          ngCount = innervalue ;
+          break ;
+        case 'OutputCount':
+          if(actualOutput)yieldRate = formatFloat((actualOutput/innervalue)*100, 2)+ '%' ;
+          break ;
+        default:
+          break ;
+      }
+    })
   });
+  productContent.push(actualInput);
+  productContent.push(actualOutput);
+  productContent.push(ngCount);
+  productContent.push(yieldRate);
+
+  _.map(productTitle,function(value){
+    CardsContent.push(
+      <TableRow key={value}>
+        <TableRowColumn>{value} :</TableRowColumn>
+        <TableRowColumn>{productContent[num]}</TableRowColumn>
+      </TableRow>
+    );
+    num += 1 ;
+  });
+  num = 0 ;
 
   return(
     <Card style={{width:'43%'}}>
-      <CardTitle title="Information2" />
+      <CardTitle title="Product" />
       <hr />
       <CardText>
         <Table>
@@ -43,7 +72,7 @@ class Information2 extends React.Component{
 
   render(){
     return(
-      <Content />
+      <Content InfoData={ this.props.InfoData } />
     );
   }
 };

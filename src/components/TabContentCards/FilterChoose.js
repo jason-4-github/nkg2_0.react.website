@@ -2,6 +2,7 @@ import React from 'react';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import { Card, CardText, CardTitle } from 'material-ui/Card';
 import { connect } from 'react-redux';
+import { Row } from 'react-bootstrap';
 
 import { ThrowFilterData } from '../../actions/DashboardBtnAction';
 
@@ -12,7 +13,6 @@ const Styles={
   },
   cardStyle: {
     marginTop:"20px",
-    width: '90%',
   }
 };
 
@@ -38,29 +38,37 @@ class FilterChoose extends React.Component{
         <CardTitle title="Filter" />
         <hr/>
         <CardText>
-          <RadioButtonGroup
-            name="shipSpeed"
-            style={{display: 'flex'}}
-            defaultSelected="null"
-            onChange={ this.handleRadioValueChange.bind(this) }
-          >
-            <RadioButton
-              value="Hour"
-              label="Hour"
-              style={Styles.radioButton} />
-            <RadioButton
-              value="Day"
-              label="Day"
-              style={Styles.radioButton} />
-            <RadioButton
-              value="Month"
-              label="Month"
-              style={Styles.radioButton} />
-            <RadioButton
-              value="Year"
-              label="Year"
-              style={Styles.radioButton} />
-          </RadioButtonGroup>
+          <Row>
+            <RadioButtonGroup
+              name="shipSpeed"
+              defaultSelected="null"
+              onChange={ this.handleRadioValueChange.bind(this) }
+            >
+              <RadioButton
+                className="col-xs-3 col-sm-3 col-md-3 col-lg-6"
+                value="Hour"
+                label="Hour"
+                style={Styles.radioButton} />
+
+              <RadioButton
+                className="col-xs-3 col-sm-3 col-md-3 col-lg-6"
+                value="Day"
+                label="Day"
+                style={Styles.radioButton} />
+
+              <RadioButton
+                className="col-xs-3 col-sm-3 col-md-3 col-lg-6"
+                value="Month"
+                label="Month"
+                style={Styles.radioButton} />
+
+              <RadioButton
+                className="col-xs-3 col-sm-3 col-md-3 col-lg-6"
+                value="Year"
+                label="Year"
+                style={Styles.radioButton} />
+            </RadioButtonGroup>
+          </Row>
         </CardText>
       </Card>
     );
