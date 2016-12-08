@@ -21,3 +21,13 @@ export const GetFilterData = (lastData='') => ( dispatch ) => {
     RadioData: TempData
   });
 };
+
+export const SideMenuControl = (_OpenClose='') => ( dispatch, getState ) =>{
+  let OpenClose = getState().closeOpen.OpenClose ;
+  OpenClose = (OpenClose === true ? false : true );
+  console.log(getState().closeOpen.OpenClose);
+  dispatch({
+    type: 'CHECK_OPEN_CLOSE',
+    OpenClose
+  });
+};

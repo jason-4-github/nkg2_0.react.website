@@ -1,5 +1,10 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import ContentFilter from 'material-ui/svg-icons/content/filter-list';
+import { connect } from 'react-redux';
+
+import { SideMenuControl } from '../actions/DashboardBtnAction';
 
 const NavbarStyle = {
     BgColor: {
@@ -15,13 +20,30 @@ var Title = (
     );
 
 class Navbar extends React.Component {
+
+  testClick(e){
+    e.preventDefault();
+    const { SideMenuControl, OpenClose } = this.props;
+    SideMenuControl();
+    if(OpenClose){
+      document.body.style.marginLeft = "0px";
+    }else{
+      document.body.style.marginLeft = "200px";
+    }
+  }
+
   render(){
     return(
       <div>
         <AppBar
           title={ Title }
           titleStyle={ NavbarStyle.BgColor }
-          showMenuIconButton={ true }
+          iconElementLeft={ <IconButton
+                                iconStyle={{fill:'balck'}}
+                                onClick={this.testClick.bind(this)}
+                                >
+                              <ContentFilter style={{marginTop:'10px'}}/>
+                            </IconButton> }
           style={ NavbarStyle.BgColor }
         />
       </div>
@@ -29,4 +51,13 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  return{
+    ...state.closeOpen
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {SideMenuControl}
+)(Navbar)

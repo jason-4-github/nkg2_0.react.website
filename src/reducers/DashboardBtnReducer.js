@@ -5,7 +5,7 @@ const initialState = {
   isType: false
 };
 
-const getData = ( state = initialState , action ) => {
+export const getData = ( state = initialState , action ) => {
   switch(action.type){
     case CATCH_RADIOBOX_DATA:
       return {
@@ -35,4 +35,14 @@ const getData = ( state = initialState , action ) => {
   }
 
 };
-export default getData;
+
+export const closeOpen = (state={OpenClose:true}, action) => {
+  switch(action.type){
+    case 'CHECK_OPEN_CLOSE':
+      return {
+        ...action
+      };
+    default:
+      return state;
+  }
+};

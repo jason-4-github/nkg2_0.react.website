@@ -11,15 +11,21 @@ import DataForm from '../../components/TabContentCards/DataForm';
 import FilterChoose from '../../components/TabContentCards/FilterChoose';
 import { PostToApi } from '../../actions/contactApi';
 
+const Styles={
+  historyFilterStyle:{
+    width:'94%',
+  },
+}
+
 const OutPutContent = (props) => {
   return(
     <Row>
-      <Row>
-        <Col xs={6} sm={6} md={6} lg={6}>
+      <Row style={Styles.historyFilterStyle}>
+        <Col xs={12} sm={4} md={4} lg={4}>
           <DateSelect btn={ false } TwoOptions={ props.TwoOptions }
                       tapName={ 'output' }/>
         </Col>
-        <Col xs={6} sm={6} md={6} lg={6}>
+        <Col xs={12} sm={8} md={8} lg={8}>
           <FilterChoose
             Querybtn={ props.Querybtn }
             btn={ true }
@@ -62,7 +68,7 @@ class OutPutContainer extends React.Component{
 
 const mapStateToProps = (state) => {
   return{
-    ...state.DashboardBtn,
+    ...state.getData,
     ...state.ChartContent,
   };
 };

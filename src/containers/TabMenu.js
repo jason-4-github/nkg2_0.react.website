@@ -65,7 +65,7 @@ const Options = (props) => {
           <div style={ styles.contentStyle } >
             <h2 style={ styles.headline } > Dashboard - {innervalue} </h2>
           </div>
-          <div>
+          <div style={ styles.contentStyle }>
           {tmpName === innervalue ?
             <ChangeTabsContent TableData={props.TableData} name={tmpName} /> : <div />}
           </div>

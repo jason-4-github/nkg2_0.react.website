@@ -77,7 +77,7 @@ class FilterChoose extends React.Component{
 
 const mapStateToProps = (state) => {
   return{
-    ...state.DashboardBtn
+    ...state.getData
   };
 };
 

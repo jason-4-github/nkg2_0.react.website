@@ -9,7 +9,6 @@ import { GetFilterData, DatePickerData } from '../../actions/DashboardBtnAction'
 const Styles={
   cardStyle: {
     marginTop: "20px",
-    width: '90%',
   }
 };
 
@@ -50,30 +49,32 @@ class DateSelect extends React.Component {
 
   render() {
     return (
-      <Card style={ Styles.cardStyle }>
-        <CardTitle title="History" />
-        <hr/>
-        <CardText>
-          <div style={{display:'flex'}}>
-            <DatePicker
-              hintText="Select day"
-              autoOk={ true }
-              onChange={ this.handleDateValueChange.bind(this) }/>
-          </div>
-          <BtnShow
-            Querybtn={ this.props.btn }
-            date={ this.state.dateData }
-            filter={ this.props.RadioData }
-            tapName={this.props.tapName} />
-        </CardText>
-      </Card>
+      <div>
+        <Card style={ Styles.cardStyle }>
+          <CardTitle title="History" />
+          <hr/>
+          <CardText>
+            <div style={{display:'flex'}}>
+              <DatePicker
+                hintText="Select day"
+                autoOk={ true }
+                onChange={ this.handleDateValueChange.bind(this) }/>
+            </div>
+          </CardText>
+        </Card><br/>
+        <BtnShow
+        Querybtn={ this.props.btn }
+        date={ this.state.dateData }
+        filter={ this.props.RadioData }
+        tapName={this.props.tapName} />
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
   return{
-    ...state.DashboardBtn
+    ...state.getData
   };
 };
 

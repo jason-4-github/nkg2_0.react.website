@@ -3,6 +3,7 @@ import { Drawer, MenuItem, Menu } from 'material-ui';
 import _ from 'lodash';
 import { browserHistory } from 'react-router';
 import { Row, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import sidelogo from '../../public/images/logo.png';
 import MenuName from '../configure/menuName';
@@ -28,7 +29,7 @@ const Styles = {
   },
 }
 
-const Options = () => {
+const Options = (props) => {
   var MenuList = [];
   _.map(MenuName, function(value){
     _.map(value.optionText,function(innervalue, i){
@@ -43,7 +44,11 @@ const Options = () => {
   });
 
   return(
-    <Drawer width={200} containerStyle={{backgroundColor: Styles.drawerStyle.bgcolor,overflowX:'hidden'}}>
+    <Drawer
+      width={200} className='sideMenu'
+      containerStyle={{backgroundColor: Styles.drawerStyle.bgcolor,overflowX:'hidden'}}
+      open={props.OpenClose}>
+
       <div style={Styles.imgStyle}></div>
       <p style={Styles.menuTitlestyle}> WD GA LINE </p>
       <Menu>
@@ -58,11 +63,19 @@ class SideMenu extends React.Component{
     return(
       <Row>
         <Col xs={12} sm={12} md={12} lg={12}>
-          <Options/>
+          <Options OpenClose={this.props.OpenClose}/>
         </Col>
       </Row>
     );
   }
 };
 
-export default SideMenu;
+const mapStateToProps = (state) => {
+  return{
+    ...state.closeOpen
+  };
+};
+
+export default connect(
+  mapStateToProps,
+)(SideMenu)

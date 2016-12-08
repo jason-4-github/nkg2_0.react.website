@@ -28,7 +28,9 @@ const Styles = {
 function InitialBody(){
   document.body.style.marginLeft = "0px";
   document.body.style.backgroundColor = "#F7F7F7";
-  //document.body.style.backgroundImage = 'url(' + BgImg + ') no-repeat';
+  document.body.style.backgroundImage = '';
+
+  document.getElementById('app').style.backgroundColor = 'white';
 }
 
 class ChooseLine extends React.Component{
@@ -47,7 +49,7 @@ class ChooseLine extends React.Component{
               <CardText style={Styles.cardStyle}>
                 <FlatButton label='WD GA LINE'
                             labelStyle={Styles.wordStyle}
-                            onClick={ () => browserHistory.replace( '/www') }  
+                            onClick={ () => browserHistory.replace( '/www') }
                 />
               </CardText>
             </Card>

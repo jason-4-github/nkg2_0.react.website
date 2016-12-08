@@ -17,18 +17,22 @@ class Main extends React.Component{
       },
     };
   }
-  render(){
+
+  componentWillMount(){
     InitialBody();
+  }
+
+  render(){
     return(
       <div>
         <NavBar />
         <SideMenu />
         {this.props.children && React.cloneElement(this.props.children, {
-          Data: this.state.Data
+          Data: this.state.Data,
         })}
       </div>
     );
   }
 }
 
-export default Main ;
+export default Main;

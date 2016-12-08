@@ -38,7 +38,7 @@ class DownTimeContainer extends React.Component{
 
 const mapStateToProps = (state) => {
   return{
-    ...state.DashboardBtn,
+    ...state.getData,
     ...state.ChartContent,
   };
 };
