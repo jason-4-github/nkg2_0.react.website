@@ -26,18 +26,18 @@ class AlarmContainer extends React.Component{
   componentDidMount() {
     // console.log("AlarmContainer componentDidMount")
     // console.log(this.props)
-    const { PostToApi } = this.props;
-    PostToApi('alarm', 'wd_ga');
+    const { PostToApi, lineName } = this.props;
+    PostToApi('alarm', lineName);
     // //GetFromApi('summary','information','wd_ga');
   }
 
   render(){
-    console.log("fffffffffffffffffff",this.props)
+    const { Data, isType, chartAData } = this.props;
     return(
       <AlarmContent
-        Data={this.props.Data}
-        isType={this.props.isType}
-        chartData={this.props.chartAData}
+        Data={Data}
+        isType={isType}
+        chartData={chartAData}
         TwoOptions={false} />
     );
   }

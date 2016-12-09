@@ -49,7 +49,7 @@ class ChooseLine extends React.Component{
               <CardText style={Styles.cardStyle}>
                 <FlatButton label='WD GA LINE'
                             labelStyle={Styles.wordStyle}
-                            onClick={ () => browserHistory.replace( '/www') }
+                            onClick={ () => browserHistory.replace( '/wd_ga') }
                 />
               </CardText>
             </Card>
@@ -57,7 +57,10 @@ class ChooseLine extends React.Component{
           <Col xs={6} sm={6} md={6} lg={6} >
             <Card>
               <CardText style={Styles.cardStyle}>
-                <FlatButton label='WD GB LINE' labelStyle={Styles.wordStyle}/>
+                <FlatButton label='WD GB LINE'
+                            labelStyle={Styles.wordStyle}
+                            onClick={ () => browserHistory.replace( '/wd_gb') }
+                />
               </CardText>
             </Card>
           </Col>

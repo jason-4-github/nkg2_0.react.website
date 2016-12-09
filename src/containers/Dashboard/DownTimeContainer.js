@@ -22,16 +22,17 @@ const DownTimeContent=(props) => {
 
 class DownTimeContainer extends React.Component{
   componentDidMount(){
-    const { PostToApi } = this.props;
-    PostToApi('downtime','wd_ga');
+    const { PostToApi, lineName } = this.props;
+    PostToApi('downtime',lineName);
   }
 
   render(){
+    const { Data, chartDData } = this.props;
     return(
       <DownTimeContent
-        Data={this.props.Data}
+        Data={Data}
         TwoOptions={false}
-        chartData={this.props.chartDData} />
+        chartData={chartDData} />
     );
   }
 };

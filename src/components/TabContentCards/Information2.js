@@ -54,7 +54,7 @@ const Content = (props) => {
   num = 0 ;
 
   return(
-    <Card style={{width:'43%'}}>
+    <Card >
       <CardTitle title="Product" />
       <hr />
       <CardText>

@@ -30,27 +30,47 @@ const Styles = {
 }
 
 const Options = (props) => {
+  const { lineName, OpenClose } = props;
   var MenuList = [];
   _.map(MenuName, function(value){
     _.map(value.optionText,function(innervalue, i){
-      MenuList.push(
-        <MenuItem
-          key={ i }
-          style={ Styles.menuWordColor }
-          primaryText={ innervalue }
-          onClick={ () => browserHistory.push( '/' + i + '/www' ) } />
-      )
+      if(innervalue === 'Change Line'){
+        MenuList.push(
+          <MenuItem
+            key={ i }
+            style={ Styles.menuWordColor }
+            primaryText={ innervalue }
+            onClick={ () => browserHistory.push( '/select-line' ) } />
+        )
+      }else{
+        MenuList.push(
+          <MenuItem
+            key={ i }
+            style={ Styles.menuWordColor }
+            primaryText={ innervalue }
+            onClick={ () => browserHistory.push( '/' + i + '/' + lineName ) } />
+        )
+      }
     });
   });
+
+  let titleName ;
+  if(lineName === 'wd_ga'){
+    titleName = 'WD GA LINE';
+  }else if(lineName === 'wd_gb'){
+    titleName = 'WD GB LINE';
+  }else{
+    titleName = 'NO MATCH LINE';
+  }
 
   return(
     <Drawer
       width={200} className='sideMenu'
       containerStyle={{backgroundColor: Styles.drawerStyle.bgcolor,overflowX:'hidden'}}
-      open={props.OpenClose}>
+      open={OpenClose}>
 
       <div style={Styles.imgStyle}></div>
-      <p style={Styles.menuTitlestyle}> WD GA LINE </p>
+      <p style={Styles.menuTitlestyle}>{titleName}</p>
       <Menu>
         {MenuList}
       </Menu>
@@ -60,10 +80,11 @@ const Options = (props) => {
 
 class SideMenu extends React.Component{
   render(){
+    const { lineName, OpenClose } = this.props;
     return(
       <Row>
         <Col xs={12} sm={12} md={12} lg={12}>
-          <Options OpenClose={this.props.OpenClose}/>
+          <Options OpenClose={OpenClose} lineName={lineName}/>
         </Col>
       </Row>
     );

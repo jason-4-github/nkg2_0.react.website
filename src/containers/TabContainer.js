@@ -16,8 +16,10 @@ class TabsContent extends React.Component {
     getAllInfo();
   }
   render(){
+    const { params, data } = this.props;
+    const { line } = params;
     return(
-      <TabMenu TableData={ this.props.data } />
+      <TabMenu TableData={ data } lineName={ line }/>
     );
   }
 }

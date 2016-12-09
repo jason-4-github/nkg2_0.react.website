@@ -6,35 +6,29 @@ import {
   TableBody,
   TableRow,
   TableRowColumn } from 'material-ui/Table';
+import moment from 'moment';
 
-const InfoTitle = ['Status','Time','Line Name','Actial Output'];
+const InfoTitle = ['Status','Time','Line Name'];
 
 const Content = (props) => {
 
   let CardsContent = [];
   let infoContent = [];
   let num = 0 ;
-  let status,time,lineName= 'wd_ga',actialOutput
+  let status, time, tmplineName= props.lineName, lineName ;
+
+  if(tmplineName === 'wd_ga')lineName = 'WD GA';
+  else if(tmplineName === 'wd_gb')lineName = 'WD GB';
+  else lineName = 'Not Found Line';
 
   _.map(props.InfoData,function(value){
-    status = (value !== undefined ? 'connect' : 'not connect');
-    _.map(value,function(innervalue, i){
-      switch (i) {
-        case 'DateYMD':
-          time = innervalue ;
-          break ;
-        case 'OutputOKCount':
-          actialOutput = innervalue ;
-          break ;
-        default:
-          break ;
-      }
-    })
+    status = (value !== {} ? 'connected' : 'not connect');
+    time = (status === 'connected' ?
+            moment().format('YYYY-MM-DD hh:mm:ss') : 'not connect')
   });
   infoContent.push(status);
   infoContent.push(time);
   infoContent.push(lineName);
-  infoContent.push(actialOutput);
 
   _.map(InfoTitle,function(value){
     CardsContent.push(
@@ -48,7 +42,7 @@ const Content = (props) => {
   num = 0 ;
 
   return(
-    <Card style={{width:'43%'}}>
+    <Card>
       <CardTitle title="Information" />
       <hr />
       <CardText>
@@ -64,8 +58,9 @@ const Content = (props) => {
 
 class Information extends React.Component{
   render(){
+    const { InfoData, lineName } = this.props;
     return(
-      <Content InfoData={ this.props.InfoData } />
+      <Content InfoData={ InfoData } lineName={ lineName }/>
     );
   }
 };

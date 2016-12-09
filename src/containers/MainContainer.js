@@ -25,8 +25,8 @@ class Main extends React.Component{
   render(){
     return(
       <div>
-        <NavBar />
-        <SideMenu />
+        <NavBar lineName={this.props.params.line}/>
+        <SideMenu lineName={this.props.params.line}/>
         {this.props.children && React.cloneElement(this.props.children, {
           Data: this.state.Data,
         })}

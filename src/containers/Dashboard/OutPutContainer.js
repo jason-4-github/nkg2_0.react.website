@@ -49,19 +49,19 @@ const OutPutContent = (props) => {
 class OutPutContainer extends React.Component{
 
   componentDidMount(){
-    const { PostToApi } = this.props;
-    PostToApi('output','wd_ga', '1');
+    const { PostToApi, lineName } = this.props;
+    PostToApi('output',lineName, '1');
   }
 
   render(){
     const radioType = "none"
-    console.log("-------------",this.props)
+    const { Data, chartOData, RadioData } = this.props;
     return(
       <OutPutContent
-        Data={this.props.Data}
+        Data={Data}
         TwoOptions={true}
-        chartData={this.props.chartOData}
-        RadioData={this.props.RadioData? this.props.RadioData : radioType } />
+        chartData={ chartOData }
+        RadioData={ RadioData? RadioData : radioType } />
     );
   }
 };

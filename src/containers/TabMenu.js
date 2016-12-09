@@ -32,25 +32,28 @@ const styles = {
 };
 
 const ChangeTabsContent = (props) => {
+  const { lineName, TableData, name } = props;
 
-  switch (props.name) {
+  switch (name) {
     case "Output":
-      return(<OutPutContainer Data={props.TableData} />);
+      return(<OutPutContainer Data={TableData} lineName={lineName}/>);
     case "Summary":
-      return(<SummaryContainer Data={props.TableData} />);
+      return(<SummaryContainer Data={TableData} lineName={lineName}/>);
     case "Downtime":
-      return(<DownTimeContainer Data={props.TableData} />);
+      return(<DownTimeContainer Data={TableData} lineName={lineName}/>);
     case "Alarm":
-      return(<AlarmContainer Data={props.TableData} />);
+      return(<AlarmContainer Data={TableData} lineName={lineName}/>);
     case "Overview":
-      return(<OverViewContainer Data={props.TableData} />);
+      return(<OverViewContainer Data={TableData} lineName={lineName}/>);
     default:
       return(<div />);
   }
 };
 
 const Options = (props) => {
+  const { lineName, TableData } = props;
   var TabList = [];
+
   _.map(MenuName, function(value){
     _.map(value.Dashboard, function(innervalue, j){
       TabList.push(
@@ -59,7 +62,7 @@ const Options = (props) => {
           label={ innervalue }
           style={ styles.headColor }
           onActive={() =>{
-            browserHistory.push( '/Dashboard/'+innervalue +'/www' );
+            browserHistory.push( '/Dashboard/'+innervalue + '/' + lineName );
             tmpName = innervalue;
           }} >
           <div style={ styles.contentStyle } >
@@ -67,7 +70,7 @@ const Options = (props) => {
           </div>
           <div style={ styles.contentStyle }>
           {tmpName === innervalue ?
-            <ChangeTabsContent TableData={props.TableData} name={tmpName} /> : <div />}
+            <ChangeTabsContent TableData={TableData} name={tmpName} lineName={lineName} /> : <div />}
           </div>
         </Tab>
       );
@@ -82,9 +85,10 @@ const Options = (props) => {
 
 class TabMenu extends React.Component{
   render() {
+    const { TableData, lineName } = this.props;
     return(
       <div>
-        <Options TableData={this.props.TableData}/>
+        <Options TableData={TableData} lineName={lineName}/>
       </div>
     );
   }

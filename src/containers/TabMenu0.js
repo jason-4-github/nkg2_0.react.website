@@ -17,12 +17,13 @@ const styles = {
 
 class TabMenu0 extends React.Component {
   render(){
+    const { line } = this.props.params;
     return(
       <div>
         <IconButton
           iconStyle={styles.largeIcon}
           style={styles.large}
-          onClick={() =>{ browserHistory.push( '/Dashboard/www' )}}
+          onClick={() =>{ browserHistory.push( '/Dashboard/' + line )}}
         >
           <ActionHome />
         </IconButton>

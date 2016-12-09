@@ -32,9 +32,27 @@ const CheckTabs = ( props ) => {
 
 const Output = (data) => {
   let drawData = [] , innerObject = {};
+  let countXNum = 31; //for x axis
+  let chooseName = '';
   _.map(data,function(value,j){
     _.map(value,function(innervalue,i){
-      innerObject.name = i;
+      if(innervalue.sDateYMD){
+        innerObject.name = parseInt(innervalue.sDateYMD.slice(-2), 10) ;
+        if( i === value.length-1 )countXNum = 31;
+        chooseName = 'day';
+      }else if(innervalue.iDateH !== undefined){ // special for '0'
+        innerObject.name = innervalue.iDateH ;
+        if( i === value.length-1 )countXNum = 24;
+        chooseName = 'hour';
+      }else if(innervalue.sDateYM){
+        innerObject.name = parseInt(innervalue.sDateYM.slice(-2), 10) ;
+        if( i === value.length-1 )countXNum = 12;
+        chooseName = 'month';
+      }else if(innervalue.sDateY){
+        innerObject.name = parseInt(innervalue.sDateY, 10) ;
+        if( i === value.length-1 )countXNum = 1;
+        chooseName = 'year';
+      }
       innerObject.Output = innervalue.OutputOKCount;
       innerObject.YieldRate = formatFloat(((innervalue.OutputOKCount /
             (innervalue.OutputNGCount + innervalue.OutputOKCount)) * 100), 2);
@@ -43,20 +61,30 @@ const Output = (data) => {
     });
   });
 
-  let putZero = 31 - drawData.length ;
-  _.times(putZero, function(i){
-    innerObject.name = i + drawData.length ;
+  _.times(countXNum, function(i){
+    if(chooseName === 'hour'){
+      innerObject.name = i ;
+    }else{
+      innerObject.name = i + 1 ;
+    }
     innerObject.Output = 0 ;
     innerObject.YieldRate = 0 ;
-    drawData.push(innerObject);
+    if( (drawData[i] !== undefined && drawData[i].name !== (i+1)) && chooseName === 'day'){
+      drawData.splice(i, 0, innerObject);
+    }else if( (drawData[i] !== undefined && drawData[i].name !== (i)) && chooseName === 'hour'){
+      drawData.splice(i, 0, innerObject);
+    }else if( (drawData[i] !== undefined && drawData[i].name !== (i+1)) && chooseName === 'month'){
+      drawData.splice(i, 0, innerObject);
+    }else if( i > 1 && drawData[i] === undefined ){
+      drawData.push(innerObject)
+    }
     innerObject = {};
   });
-
   return(
     <ResponsiveContainer width="100%" minHeight={300}>
       <ComposedChart width={Styles.width} height={Styles.height} data={drawData}
           margin={Styles.margin}>
-        <XAxis dataKey="no" />
+        <XAxis dataKey="name" />
         <YAxis yAxisId="left" label="Total-Output" orientation="left" domain={[0,'dataMax+1000']}/>
         <YAxis yAxisId="right" label="Yield-Rate(%)" orientation="right" domain={[0,100]}/>
         <Tooltip/>
@@ -142,7 +170,6 @@ const Alarm = (data) => {
 class Charts extends React.Component{
 
   render(){
-    console.log("jjjjjjjjjjjjjjjjjjjjj",this.props.data)
     return(
     <Card style={{width:'90%',marginTop:'20px'}}>
       <CardText>
