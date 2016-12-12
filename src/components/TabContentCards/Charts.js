@@ -1,3 +1,10 @@
+//*******************************************************
+//Charts -- CheackTabs
+//                      -- Output
+//                      -- Downtime
+//                      -- Alarm
+//*******************************************************
+
 import React from 'react';
 import { ComposedChart, Line, Bar, XAxis, ResponsiveContainer,
           YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie,Cell } from 'recharts';
@@ -20,11 +27,11 @@ const Styles = {
 const CheckTabs = ( props ) => {
   switch (props.pageName) {
     case "Output":
-      return (<Output data={props.data} />) ;
+      return (props.data === undefined ? <div/> : <Output data={props.data} />) ;
     case "Downtime":
-      return (<Downtime data={props.data} />) ;
+      return (props.data === undefined ? <div/> : <Downtime data={props.data} />) ;
     case "Alarm":
-      return (<Alarm data={props.data} />) ;
+      return (props.data === undefined ? <div/> : <Alarm data={props.data} />) ;
     default:
       return (<defaultCharts data={props.data} />) ;
   }
@@ -115,9 +122,6 @@ const Downtime = (data) => {
   //need to modify
   function outputCustomLabel({ name }){ return (name); };
 
-  // <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
-  // {`${(percent * 100).toFixed(0)}%`}
-  // </text>
   return(
   <ResponsiveContainer width="100%" minHeight={400}>
     <PieChart width={800} height={400} >

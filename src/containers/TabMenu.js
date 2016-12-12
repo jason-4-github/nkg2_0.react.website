@@ -12,8 +12,6 @@ import OutPutContainer from './Dashboard/OutPutContainer';
 import DownTimeContainer from './Dashboard/DownTimeContainer';
 import AlarmContainer from './Dashboard/AlarmContainer';
 
-var tmpName = "Overview" ;
-
 const styles = {
   headline: {
     fontSize: 24,
@@ -27,7 +25,7 @@ const styles = {
     backgroundColor: 'white',
   },
   contentStyle: {
-    paddingLeft: '20px',
+    paddingLeft: '50px',
   },
 };
 
@@ -36,7 +34,7 @@ const ChangeTabsContent = (props) => {
 
   switch (name) {
     case "Output":
-      return(<OutPutContainer Data={TableData} lineName={lineName}/>);
+    return(<OutPutContainer Data={TableData} lineName={lineName}/>);
     case "Summary":
       return(<SummaryContainer Data={TableData} lineName={lineName}/>);
     case "Downtime":
@@ -52,8 +50,21 @@ const ChangeTabsContent = (props) => {
 
 const Options = (props) => {
   const { lineName, TableData } = props;
-  var TabList = [];
+  // first loaddata
+  let TabList = [];
+  let firstPage, tmpName;
 
+  let tmpPath = location.pathname.split('/');
+  let firstPath = (tmpPath[3] === undefined && tmpPath[1] === 'Dashboard' ?
+                    'Overview': tmpPath[2]);
+  const tabName = ['Overview','Summary','Output','Downtime','Alarm'];
+  _.map(tabName, function(value,i){
+    if(firstPath === value) firstPage = i ;
+  });
+
+  tmpName = firstPath;
+
+  //construct tabContent
   _.map(MenuName, function(value){
     _.map(value.Dashboard, function(innervalue, j){
       TabList.push(
@@ -64,20 +75,23 @@ const Options = (props) => {
           onActive={() =>{
             browserHistory.push( '/Dashboard/'+innervalue + '/' + lineName );
             tmpName = innervalue;
-          }} >
+          }}>
           <div style={ styles.contentStyle } >
             <h2 style={ styles.headline } > Dashboard - {innervalue} </h2>
           </div>
           <div style={ styles.contentStyle }>
-          {tmpName === innervalue ?
-            <ChangeTabsContent TableData={TableData} name={tmpName} lineName={lineName} /> : <div />}
+            {tmpName === innervalue ?
+              <ChangeTabsContent TableData={TableData} name={tmpName} lineName={lineName} /> :
+              <div />
+            }
           </div>
         </Tab>
       );
     });
   });
   return(
-    <Tabs>
+    <Tabs
+    initialSelectedIndex={firstPage} >
       {TabList}
     </Tabs>
   );

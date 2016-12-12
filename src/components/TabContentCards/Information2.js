@@ -1,11 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableRowColumn } from 'material-ui/Table';
+import {Table, tbody, tr, td} from 'react-bootstrap';
+
+const Styles={
+  cardStyle:{
+    fontFamily: 'Roboto Mono, monospace',
+  }
+}
 
 import {formatFloat} from '../../configure/commonFun';
 
@@ -44,24 +46,24 @@ const Content = (props) => {
 
   _.map(productTitle,function(value){
     CardsContent.push(
-      <TableRow key={value}>
-        <TableRowColumn>{value} :</TableRowColumn>
-        <TableRowColumn>{productContent[num]}</TableRowColumn>
-      </TableRow>
+      <tr key={value}>
+        <td>{value} :</td>
+        <td>{productContent[num]}</td>
+      </tr>
     );
     num += 1 ;
   });
   num = 0 ;
 
   return(
-    <Card >
+    <Card style={Styles.cardStyle}>
       <CardTitle title="Product" />
       <hr />
       <CardText>
-        <Table>
-          <TableBody displayRowCheckbox={false}>
+        <Table style={{border: 'hidden'}} responsive hover>
+          <tbody>
             {CardsContent}
-          </TableBody>
+          </tbody>
         </Table>
       </CardText>
     </Card>

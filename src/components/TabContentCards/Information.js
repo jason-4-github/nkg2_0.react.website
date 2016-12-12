@@ -1,12 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableRowColumn } from 'material-ui/Table';
+import {Table, tbody, tr, td} from 'react-bootstrap';
 import moment from 'moment';
+
+const Styles={
+  cardStyle:{
+    fontFamily: 'Roboto Mono, monospace',
+  }
+}
 
 const InfoTitle = ['Status','Time','Line Name'];
 
@@ -32,24 +34,24 @@ const Content = (props) => {
 
   _.map(InfoTitle,function(value){
     CardsContent.push(
-      <TableRow key={value}>
-        <TableRowColumn>{value} :</TableRowColumn>
-        <TableRowColumn>{infoContent[num]}</TableRowColumn>
-      </TableRow>
+      <tr key={value}>
+        <td>{value} :</td>
+        <td>{infoContent[num]}</td>
+      </tr>
     );
     num += 1 ;
   });
   num = 0 ;
 
   return(
-    <Card>
+    <Card style={Styles.cardStyle}>
       <CardTitle title="Information" />
       <hr />
       <CardText>
-        <Table>
-          <TableBody displayRowCheckbox={false}>
+        <Table style={{border: 'hidden'}} responsive hover>
+          <tbody>
             {CardsContent}
-          </TableBody>
+          </tbody>
         </Table>
       </CardText>
     </Card>

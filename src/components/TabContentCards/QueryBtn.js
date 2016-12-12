@@ -1,3 +1,9 @@
+//*******************************************************
+//QueryBtn -- Onclick --Output 4 types --|--PostToApi
+//                  | --Downtime       --|
+//                  | --Alarm          --|
+//*******************************************************
+
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';

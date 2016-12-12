@@ -26,6 +26,7 @@ const SummaryContent = (props) => {
         <Col xs={12} sm={12} md={6} lg={6}>
           <Information InfoData={ InfoData } lineName={ lineName }/>
         </Col>
+        <Col xs={12} sm={12} mdHidden lgHidden />
         <Col xs={12} sm={12} md={6} lg={6}>
           <Information2 InfoData={ InfoData } />
         </Col>

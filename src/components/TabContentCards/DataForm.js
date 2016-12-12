@@ -1,7 +1,14 @@
+//*******************************************************
+//DataForm ----- Overview
+//            -- Summary
+//            -- Output
+//            -- Downtime
+//            -- Alarm
+//*******************************************************
+
 import React from 'react';
 import {Card, CardText} from 'material-ui/Card';
-import {Table, TableBody, TableHeader, TableHeaderColumn,
-        TableRow, TableRowColumn} from 'material-ui/Table';
+import {Table, thead, tbody, th, tr, td} from 'react-bootstrap';
 import _ from 'lodash';
 
 import {processTimeDigit,formatFloat} from '../../configure/commonFun';
@@ -11,6 +18,7 @@ const Styles={
     textAlign: 'center',
     marginTop: '20px',
     width: '90%',
+    fontFamily: 'Roboto Mono, monospace',
   },
 };
 
@@ -34,7 +42,7 @@ const DataContent=(props) => {
                 'Idle Time','Total Time'];
   }
   _.map(tmpTitle,function(value){
-    tableTitle.push(<TableHeaderColumn key={value}>{value}</TableHeaderColumn>);
+    tableTitle.push(<th  style={{textAlign:'center'}} key={value}>{value}</th>);
   });
 
 //***************Table Content*****************
@@ -44,31 +52,31 @@ const DataContent=(props) => {
       _.map(value, function(innervalue, i){
         if(i.substring(i.length-4) === "Time"){
           let formatTime = processTimeDigit(innervalue)
-          innercons.push( <TableRowColumn key={props.Data.tapName+i}>{formatTime}</TableRowColumn>);
+          innercons.push( <td key={props.Data.tapName+i}>{formatTime}</td>);
         }else{
-          innercons.push( <TableRowColumn key={props.Data.tapName+i}>{innervalue}</TableRowColumn>);
+          innercons.push( <td key={props.Data.tapName+i}>{innervalue}</td>);
         }
       });
-      cons.push(<TableRow key={props.Data.tapName+j} children={innercons}/>);
+      cons.push(<tr key={props.Data.tapName+j} children={innercons}/>);
       innercons = [];
     });
   }else if(props.Data.tapName === 'output'){
     _.map(props.Data.Data , function(value, j){
       let formatdata = formatFloat(((value.OutputOKCount / (value.OutputNGCount + value.OutputOKCount)) * 100), 2);
-      innercons.push(<TableRowColumn key={value}>{j+1}</TableRowColumn>);
+      innercons.push(<td key={value+j+1}>{j+1}</td>);
       //change date by format
       if(value.sDateYMD){
-        innercons.push(<TableRowColumn key={value}>{value.sDateYMD}</TableRowColumn>);
+        innercons.push(<td key={value.sDateYMD}>{value.sDateYMD}</td>);
       }else if(value.iDateH !== undefined){ // special for '0'
-        innercons.push(<TableRowColumn key={value}>{value.iDateH}</TableRowColumn>);
+        innercons.push(<td key={value.iDateH}>{value.iDateH}</td>);
       }else if(value.sDateYM){
-        innercons.push(<TableRowColumn key={value}>{value.sDateYM}</TableRowColumn>);
+        innercons.push(<td key={value.sDateYM}>{value.sDateYM}</td>);
       }else if(value.sDateY){
-        innercons.push(<TableRowColumn key={value}>{value.sDateY}</TableRowColumn>);
+        innercons.push(<td key={value.sDateY}>{value.sDateY}</td>);
       }
-      innercons.push(<TableRowColumn key={value}>{value.OutputOKCount}</TableRowColumn>);
-      innercons.push(<TableRowColumn key={value}>{formatdata+'%'}</TableRowColumn>);
-      cons.push(<TableRow key={props.Data.tapName+j} children={innercons}/>);
+      innercons.push(<td key={value.OutputOKCount}>{value.OutputOKCount}</td>);
+      innercons.push(<td key={value}>{formatdata+'%'}</td>);
+      cons.push(<tr key={props.Data.tapName+j} children={innercons}/>);
       innercons = [];
     });
   }else if(props.Data.tapName === 'alarm'){
@@ -83,9 +91,9 @@ const DataContent=(props) => {
       tmpContent.push(processTimeDigit(value.RecoverTime,'n'));
       tmpContent.push(processTimeDigit(value.AlarmTime+value.RecoverTime,'n'));
       _.map(tmpContent,function(innervalue,i){
-        innercons.push(<TableRowColumn key={j+i}>{innervalue}</TableRowColumn>);
+        innercons.push(<td key={j+i}>{innervalue}</td>);
       });
-      cons.push(<TableRow key={props.Data.tapName+j} children={innercons}/>);
+      cons.push(<tr key={props.Data.tapName+j} children={innercons}/>);
       innercons = [];
     });
   }else if(props.Data.tapName === 'downtime'){
@@ -96,22 +104,22 @@ const DataContent=(props) => {
     _.map(props.Data.Data, function(value,j){
       totaltime += parseInt(value.AlarmTime,10);
 
-      innercons.push(<TableRowColumn key={props.Data.tapName+"-"+j}>{j+1}</TableRowColumn>);
-      innercons.push(<TableRowColumn key={props.Data.tapName+"--"+j}>{MachineName[j]}</TableRowColumn>);
-      innercons.push(<TableRowColumn key={props.Data.tapName+"---"+j}>{processTimeDigit(value.AlarmTime)}</TableRowColumn>);
-      cons.push(<TableRow key={props.Data.tapName+j} children={innercons}/>);
+      innercons.push(<td key={props.Data.tapName+"-"+j}>{j+1}</td>);
+      innercons.push(<td key={props.Data.tapName+"--"+j}>{MachineName[j]}</td>);
+      innercons.push(<td key={props.Data.tapName+"---"+j}>{processTimeDigit(value.AlarmTime)}</td>);
+      cons.push(<tr key={props.Data.tapName+j} children={innercons}/>);
       innercons = [];
       dataEnd = j ;
     });
     //push last three row into array
     _.map(MachineName, function(value,j){
       if( j > dataEnd ){
-        innercons.push(<TableRowColumn key={props.Data.tapName+"-"+j}>
-          {MachineName[j] !== 'TOTAL' ? j+1 : ''}</TableRowColumn>);
-        innercons.push(<TableRowColumn key={props.Data.tapName+"--"+j}>{MachineName[j]}</TableRowColumn>);
-        innercons.push(<TableRowColumn key={props.Data.tapName+"---"+j}>
-          {MachineName[j] !== 'TOTAL' ? processTimeDigit(0) : processTimeDigit(totaltime)}</TableRowColumn>);
-        cons.push(<TableRow key={props.Data.tapName+j} children={innercons}/>);
+        innercons.push(<td key={props.Data.tapName+"-"+j}>
+          {MachineName[j] !== 'TOTAL' ? j+1 : ''}</td>);
+        innercons.push(<td key={props.Data.tapName+"--"+j}>{MachineName[j]}</td>);
+        innercons.push(<td key={props.Data.tapName+"---"+j}>
+          {MachineName[j] !== 'TOTAL' ? processTimeDigit(0) : processTimeDigit(totaltime)}</td>);
+        cons.push(<tr key={props.Data.tapName+j} children={innercons}/>);
         innercons = [];
       }
 
@@ -121,15 +129,15 @@ const DataContent=(props) => {
   return(
     <Card style={Styles.tableStyle}>
       <CardText>
-        <Table selectable={false}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow>
+        <Table responsive hover style={{fontSize: 'initial'}}>
+          <thead>
+            <tr>
               {tableTitle}
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false} showRowHover={true}>
+            </tr>
+          </thead>
+          <tbody>
             {cons}
-          </TableBody>
+          </tbody>
         </Table>
       </CardText>
     </Card>

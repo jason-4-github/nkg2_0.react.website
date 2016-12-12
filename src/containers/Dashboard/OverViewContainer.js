@@ -10,7 +10,7 @@ import Information from '../../components/TabContentCards/Information';
 import Information2 from '../../components/TabContentCards/Information2';
 import DataForm from '../../components/TabContentCards/DataForm';
 import ImgCard from '../../components/TabContentCards/ImgCard';
-import {GetFromApi} from '../../actions/contactApi';
+import { GetFromApi } from '../../actions/contactApi';
 
 const Styles={
   twoCardsStyle:{
@@ -26,6 +26,7 @@ const OverViewContent = (props) => {
         <Col xs={12} sm={12} md={6} lg={6}>
           <Information InfoData={ InfoData } lineName={ lineName }/>
         </Col>
+        <Col xs={12} sm={12} mdHidden lgHidden />
         <Col xs={12} sm={12} md={6} lg={6}>
           <Information2 InfoData={ InfoData } />
         </Col>

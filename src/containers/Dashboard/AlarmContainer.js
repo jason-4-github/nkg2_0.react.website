@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'react-bootstrap';
 // import { bindActionCreators } from 'redux'
 
 // import { Charts, DataForm, DateSelect,
@@ -9,26 +10,38 @@ import DataForm from '../../components/TabContentCards/DataForm';
 import DateSelect from '../../components/TabContentCards/DateSelect';
 import { PostToApi } from '../../actions/contactApi';
 
+const Styles={
+  CardsStyle:{
+    width:'94%',
+  },
+}
+
 const AlarmContent = (props) => {
-  console.log("nnnnnnnnnnnnnnnnnnnnnm",props)
   return(
-    <div>
-      <DateSelect btn={ true } isType={ props.isType }
-                  TwoOptions={props.TwoOptions} tapName={'alarm'}/>
-      <Charts PageName={"Alarm"} data={ props.chartData }/>
-      <DataForm Data={ props.chartData } tapName={'alarm'} />
-    </div>
+    <Row>
+      <Row style={Styles.CardsStyle}>
+        <Col xs={12} sm={12} md={12} lg={12}>
+          <DateSelect btn={ true } isType={ props.isType }
+                      TwoOptions={props.TwoOptions} tapName={'alarm'}/>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} sm={12} md={12} lg={12}>
+          <Charts PageName={"Alarm"} data={ props.chartData }/>
+        </Col>
+        <Col xs={12} sm={12} md={12} lg={12}>
+          <DataForm Data={ props.chartData } tapName={'alarm'} />
+        </Col>
+      </Row>
+    </Row>
   );
 };
 
 class AlarmContainer extends React.Component{
 
   componentDidMount() {
-    // console.log("AlarmContainer componentDidMount")
-    // console.log(this.props)
     const { PostToApi, lineName } = this.props;
     PostToApi('alarm', lineName);
-    // //GetFromApi('summary','information','wd_ga');
   }
 
   render(){
