@@ -24,11 +24,11 @@ const OverViewContent = (props) => {
     <Row>
       <Row style={Styles.twoCardsStyle}>
         <Col xs={12} sm={12} md={6} lg={6}>
-          <Information InfoData={ InfoData } lineName={ lineName }/>
+          <Information InfoData={ InfoData } lineName={ lineName } tabName={ 'overview' }/>
         </Col>
         <Col xs={12} sm={12} mdHidden lgHidden />
         <Col xs={12} sm={12} md={6} lg={6}>
-          <Information2 InfoData={ InfoData } />
+          <Information2 InfoData={ InfoData } tabName={ 'overview' }/>
         </Col>
       </Row>
       <Row>
@@ -38,7 +38,7 @@ const OverViewContent = (props) => {
       </Row>
       <Row>
         <Col xs={12} sm={12} md={12} lg={12}>
-          <DataForm Data={ Data } />
+          <DataForm Data={ Data } tapName={ 'overview' }/>
         </Col>
       </Row>
     </Row>

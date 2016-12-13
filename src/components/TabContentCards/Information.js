@@ -11,13 +11,14 @@ const Styles={
 }
 
 const InfoTitle = ['Status','Time','Line Name'];
+const OverviewTitle = ['Status','Time','Line Name', 'Actual Output'];
 
 const Content = (props) => {
 
   let CardsContent = [];
   let infoContent = [];
   let num = 0 ;
-  let status, time, tmplineName= props.lineName, lineName ;
+  let status, time, tmplineName= props.lineName, lineName, actualOutput ;
 
   if(tmplineName === 'wd_ga')lineName = 'WD GA';
   else if(tmplineName === 'wd_gb')lineName = 'WD GB';
@@ -27,12 +28,19 @@ const Content = (props) => {
     status = (value !== {} ? 'connected' : 'not connect');
     time = (status === 'connected' ?
             moment().format('YYYY-MM-DD hh:mm:ss') : 'not connect')
+    actualOutput = value.OutputOKCount;
   });
   infoContent.push(status);
   infoContent.push(time);
   infoContent.push(lineName);
 
-  _.map(InfoTitle,function(value){
+  let tmpTitle = InfoTitle;
+  if( props.tabName ) {
+    tmpTitle = OverviewTitle ;
+    infoContent.push(actualOutput);
+  }
+
+  _.map(tmpTitle,function(value){
     CardsContent.push(
       <tr key={value}>
         <td>{value} :</td>
@@ -60,9 +68,9 @@ const Content = (props) => {
 
 class Information extends React.Component{
   render(){
-    const { InfoData, lineName } = this.props;
+    const { InfoData, lineName, tabName } = this.props;
     return(
-      <Content InfoData={ InfoData } lineName={ lineName }/>
+      <Content InfoData={ InfoData } lineName={ lineName } tabName={ tabName }/>
     );
   }
 };

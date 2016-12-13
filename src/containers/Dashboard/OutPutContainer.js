@@ -54,6 +54,7 @@ class OutPutContainer extends React.Component{
   }
 
   render(){
+    console.log('oooooooooooooooooooooooooooo')
     const radioType = "none"
     const { Data, chartOData, RadioData } = this.props;
     return(

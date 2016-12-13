@@ -40,6 +40,8 @@ const DataContent=(props) => {
   }else if(props.Data.tapName === 'alarm'){
     tmpTitle= ['No','Machine Name','Alarm Code','Description','Count','Alarm Time',
                 'Idle Time','Total Time'];
+  }else if(props.Data.tapName === 'overview'){
+    tmpTitle= ['No', 'Machine Name', 'Error Code', 'Error Description'];
   }
   _.map(tmpTitle,function(value){
     tableTitle.push(<th  style={{textAlign:'center'}} key={value}>{value}</th>);
@@ -124,6 +126,8 @@ const DataContent=(props) => {
       }
 
     });
+  }else{
+    cons = [];
   }
 
   return(

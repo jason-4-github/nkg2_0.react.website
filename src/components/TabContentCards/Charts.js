@@ -25,12 +25,27 @@ const Styles = {
 };
 
 const CheckTabs = ( props ) => {
+  let tmpData = [];
+  let yyy = {}, xxx = {};
+  yyy.OutputOKCount = 5023;
+  yyy.OutputNGCount = 6077;
+  yyy.sDateYMD = '2016-12-12';
+  tmpData.push(yyy);
+  xxx.OutputOKCount = 4099;
+  xxx.OutputNGCount = 5677;
+  xxx.sDateYMD = '2016-12-13';
+  tmpData.push(xxx);
+
+  console.log(tmpData)
   switch (props.pageName) {
     case "Output":
+    console.log('Enter Output')
       return (props.data === undefined ? <div/> : <Output data={props.data} />) ;
     case "Downtime":
+    console.log('Enter Downtime')
       return (props.data === undefined ? <div/> : <Downtime data={props.data} />) ;
     case "Alarm":
+    console.log('Enter Alarm')
       return (props.data === undefined ? <div/> : <Alarm data={props.data} />) ;
     default:
       return (<defaultCharts data={props.data} />) ;

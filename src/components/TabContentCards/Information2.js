@@ -18,46 +18,47 @@ const Content = (props) => {
   let productContent = [];
   let num = 0 ;
   let actualInput,ngCount,yieldRate,actualOutput
+  const {tabName} = props ;
 
-  _.map(props.InfoData,function(value){
-    _.map(value,function(innervalue, i){
-      switch (i) {
-        case 'InputCount':
-          actualInput = innervalue ;
-          break ;
-        case 'OutputOKCount':
-          actualOutput = innervalue ;
-          break ;
-        case 'OutputNGCount':
-          ngCount = innervalue ;
-          break ;
-        case 'OutputCount':
-          if(actualOutput)yieldRate = formatFloat((actualOutput/innervalue)*100, 2)+ '%' ;
-          break ;
-        default:
-          break ;
-      }
-    })
-  });
-  productContent.push(actualInput);
-  productContent.push(actualOutput);
-  productContent.push(ngCount);
-  productContent.push(yieldRate);
+  if(!tabName){  _.map(props.InfoData,function(value){
+      _.map(value,function(innervalue, i){
+        switch (i) {
+          case 'InputCount':
+            actualInput = innervalue ;
+            break ;
+          case 'OutputOKCount':
+            actualOutput = innervalue ;
+            break ;
+          case 'OutputNGCount':
+            ngCount = innervalue ;
+            break ;
+          case 'OutputCount':
+            if(actualOutput)yieldRate = formatFloat((actualOutput/innervalue)*100, 2)+ '%' ;
+            break ;
+          default:
+            break ;
+        }
+      })
+    });
+    productContent.push(actualInput);
+    productContent.push(actualOutput);
+    productContent.push(ngCount);
+    productContent.push(yieldRate);
 
-  _.map(productTitle,function(value){
-    CardsContent.push(
-      <tr key={value}>
-        <td>{value} :</td>
-        <td>{productContent[num]}</td>
-      </tr>
-    );
-    num += 1 ;
-  });
-  num = 0 ;
-
+    _.map(productTitle,function(value){
+      CardsContent.push(
+        <tr key={value}>
+          <td>{value} :</td>
+          <td>{productContent[num]}</td>
+        </tr>
+      );
+      num += 1 ;
+    });
+    num = 0 ;
+  }
   return(
     <Card style={Styles.cardStyle}>
-      <CardTitle title="Product" />
+      { tabName ? <CardTitle title="Manpower" /> : <CardTitle title="Product" /> }
       <hr />
       <CardText>
         <Table style={{border: 'hidden'}} responsive hover>
@@ -74,7 +75,7 @@ class Information2 extends React.Component{
 
   render(){
     return(
-      <Content InfoData={ this.props.InfoData } />
+      <Content InfoData={ this.props.InfoData } tabName={ this.props.tabName }/>
     );
   }
 };

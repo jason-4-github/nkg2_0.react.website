@@ -34,23 +34,21 @@ const Options = (props) => {
   var MenuList = [];
   _.map(MenuName, function(value){
     _.map(value.optionText,function(innervalue, i){
-      if(innervalue === 'Change Line'){
-        MenuList.push(
-          <MenuItem
-            key={ i }
-            style={ Styles.menuWordColor }
-            primaryText={ innervalue }
-            onClick={ () => browserHistory.push( '/select-line' ) } />
-        )
-      }else{
-        MenuList.push(
-          <MenuItem
-            key={ i }
-            style={ Styles.menuWordColor }
-            primaryText={ innervalue }
-            onClick={ () => browserHistory.push( '/' + i + '/' + lineName ) } />
-        )
-      }
+      MenuList.push(
+        <MenuItem
+          key={ i }
+          style={ Styles.menuWordColor }
+          primaryText={ innervalue }
+          onClick={ () => {
+                    if( i === 'Dashboard' ){
+                      browserHistory.push( '/Dashboard/Overview/' + lineName )
+                    }else if( i === 'Change_Line' ){
+                      browserHistory.push( '/select-line' )
+                    }else{
+                      browserHistory.push( '/' + i + '/' + lineName )
+                    }
+                  }} />
+      )
     });
   });
 

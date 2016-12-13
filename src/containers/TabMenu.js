@@ -31,10 +31,9 @@ const styles = {
 
 const ChangeTabsContent = (props) => {
   const { lineName, TableData, name } = props;
-
   switch (name) {
     case "Output":
-    return(<OutPutContainer Data={TableData} lineName={lineName}/>);
+      return(<OutPutContainer Data={TableData} lineName={lineName}/>);
     case "Summary":
       return(<SummaryContainer Data={TableData} lineName={lineName}/>);
     case "Downtime":
@@ -90,8 +89,7 @@ const Options = (props) => {
     });
   });
   return(
-    <Tabs
-    initialSelectedIndex={firstPage} >
+    <Tabs initialSelectedIndex={firstPage} >
       {TabList}
     </Tabs>
   );
