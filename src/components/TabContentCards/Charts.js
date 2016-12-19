@@ -27,6 +27,7 @@ const Styles = {
 const CheckTabs = ( props ) => {
   let tmpData = [];
   let yyy = {}, xxx = {};
+  let dataTrasfer = 'Ooops! Something wrong here, There is no data on Chart to show.';
   yyy.OutputOKCount = 5023;
   yyy.OutputNGCount = 6077;
   yyy.sDateYMD = '2016-12-12';
@@ -35,18 +36,18 @@ const CheckTabs = ( props ) => {
   xxx.OutputNGCount = 5677;
   xxx.sDateYMD = '2016-12-13';
   tmpData.push(xxx);
-
   console.log(tmpData)
+
   switch (props.pageName) {
     case "Output":
     console.log('Enter Output')
-      return (props.data === undefined ? <div/> : <Output data={props.data} />) ;
+      return (<Output data={tmpData} />) ;
     case "Downtime":
     console.log('Enter Downtime')
-      return (props.data === undefined ? <div/> : <Downtime data={props.data} />) ;
+      return (props.data === undefined ? <div  children={dataTrasfer}/> : <Downtime data={props.data} />) ;
     case "Alarm":
     console.log('Enter Alarm')
-      return (props.data === undefined ? <div/> : <Alarm data={props.data} />) ;
+      return (props.data === undefined ? <div  children={dataTrasfer}/> : <Alarm data={props.data} />) ;
     default:
       return (<defaultCharts data={props.data} />) ;
   }
@@ -112,8 +113,8 @@ const Output = (data) => {
         <Tooltip/>
         <Legend/>
         <CartesianGrid stroke='#f5f5f5'/>
-        <Bar yAxisId="left" dataKey='Output' barCategoryGap={'90%'} fill='rgb(194, 53, 49)'/>
-        <Line yAxisId="right"  dataKey='YieldRate' stroke='rgb(47, 69, 84)'/>
+        <Bar isAnimationActive={false} yAxisId="left" dataKey='Output' barCategoryGap={'90%'} fill='rgb(194, 53, 49)'/>
+        <Line isAnimationActive={false} yAxisId="right"  dataKey='YieldRate' stroke='rgb(47, 69, 84)'/>
       </ComposedChart>
     </ResponsiveContainer>
   );

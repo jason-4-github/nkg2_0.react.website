@@ -51,15 +51,11 @@ const Options = (props) => {
   const { lineName, TableData } = props;
   // first loaddata
   let TabList = [];
-  let firstPage, tmpName;
+  let tmpName;
 
   let tmpPath = location.pathname.split('/');
   let firstPath = (tmpPath[3] === undefined && tmpPath[1] === 'Dashboard' ?
                     'Overview': tmpPath[2]);
-  const tabName = ['Overview','Summary','Output','Downtime','Alarm'];
-  _.map(tabName, function(value,i){
-    if(firstPath === value) firstPage = i ;
-  });
 
   tmpName = firstPath;
 
@@ -69,6 +65,7 @@ const Options = (props) => {
       TabList.push(
         <Tab
           key={ j }
+          value={innervalue}
           label={ innervalue }
           style={ styles.headColor }
           onActive={() =>{
@@ -89,7 +86,7 @@ const Options = (props) => {
     });
   });
   return(
-    <Tabs initialSelectedIndex={firstPage} >
+    <Tabs value={firstPath}>
       {TabList}
     </Tabs>
   );

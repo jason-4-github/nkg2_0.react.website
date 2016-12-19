@@ -41,7 +41,7 @@ const Options = (props) => {
           primaryText={ innervalue }
           onClick={ () => {
                     if( i === 'Dashboard' ){
-                      browserHistory.push( '/Dashboard/Overview/' + lineName )
+                      browserHistory.push( '/Dashboard/Overview/' + lineName )            
                     }else if( i === 'Change_Line' ){
                       browserHistory.push( '/select-line' )
                     }else{

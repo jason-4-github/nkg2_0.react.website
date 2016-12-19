@@ -23,11 +23,11 @@ const Content = (props) => {
   if(tmplineName === 'wd_ga')lineName = 'WD GA';
   else if(tmplineName === 'wd_gb')lineName = 'WD GB';
   else lineName = 'Not Found Line';
+  status = (props.InfoData ? 'connected' : 'not connect');
+  time = (status === 'connected' ?
+    moment().format('YYYY-MM-DD hh:mm:ss') : 'not connect')
 
   _.map(props.InfoData,function(value){
-    status = (value !== {} ? 'connected' : 'not connect');
-    time = (status === 'connected' ?
-            moment().format('YYYY-MM-DD hh:mm:ss') : 'not connect')
     actualOutput = value.OutputOKCount;
   });
   infoContent.push(status);
