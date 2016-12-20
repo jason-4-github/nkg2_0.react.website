@@ -12,15 +12,9 @@ import {Table, thead, tbody, th, tr, td} from 'react-bootstrap';
 import _ from 'lodash';
 
 import {processTimeDigit,formatFloat} from '../../configure/commonFun';
-
-const Styles={
-  tableStyle:{
-    textAlign: 'center',
-    marginTop: '20px',
-    width: '90%',
-    fontFamily: 'Roboto Mono, monospace',
-  },
-};
+import { styleConstant } from '../../styles/styleConstant';
+//css
+const Styles = styleConstant.dataForm;
 
 const DataContent=(props) => {
   let tableTitle = [];

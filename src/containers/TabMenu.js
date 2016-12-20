@@ -11,23 +11,9 @@ import SummaryContainer from './Dashboard/SummaryContainer';
 import OutPutContainer from './Dashboard/OutPutContainer';
 import DownTimeContainer from './Dashboard/DownTimeContainer';
 import AlarmContainer from './Dashboard/AlarmContainer';
-
-const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
-    color: '#ee6e73',
-  },
-  headColor: {
-    color: '#ee6e73',
-    backgroundColor: 'white',
-  },
-  contentStyle: {
-    paddingLeft: '50px',
-  },
-};
+import { styleConstant } from '../styles/styleConstant';
+//css
+const styles = styleConstant.tabMenu;
 
 const ChangeTabsContent = (props) => {
   const { lineName, TableData, name } = props;

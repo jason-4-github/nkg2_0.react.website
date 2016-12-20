@@ -5,29 +5,10 @@ import { browserHistory } from 'react-router';
 import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import sidelogo from '../../public/images/logo.png';
 import MenuName from '../configure/menuName';
-
-const Styles = {
-  imgStyle: {
-    background: 'url(' + sidelogo + ') no-repeat',
-    backgroundPosition: 'center',
-    width: '200px',
-    height: '200px',
-  },
-  menuWordColor: {
-    color: 'white',
-  },
-  menuTitlestyle: {
-    textAlign: 'center',
-    color: 'white',
-    fontSize: '20px',
-  },
-  drawerStyle: {
-    open: 'open',
-    bgcolor: '#2A3F54'
-  },
-}
+import { styleConstant } from '../styles/styleConstant';
+//css
+const Styles = styleConstant.sideMenu;
 
 const Options = (props) => {
   const { lineName, OpenClose } = props;
@@ -41,7 +22,7 @@ const Options = (props) => {
           primaryText={ innervalue }
           onClick={ () => {
                     if( i === 'Dashboard' ){
-                      browserHistory.push( '/Dashboard/Overview/' + lineName )            
+                      browserHistory.push( '/Dashboard/Overview/' + lineName )
                     }else if( i === 'Change_Line' ){
                       browserHistory.push( '/select-line' )
                     }else{

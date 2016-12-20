@@ -4,26 +4,9 @@ import {Card, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { browserHistory } from 'react-router';
 
-const Styles = {
-  titleStyle: {
-    textAlign: 'center',
-    fontSize: '50px',
-    fontWeight: 800,
-  },
-  wholePage: {
-    paddingLeft: '0px',
-    height: '100vh',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-  },
-  wordStyle: {
-    color: '#039be5',
-    fontWeight: 800,
-  },
-  cardStyle: {
-    textAlign:'center',
-  }
-};
+import { styleConstant } from '../styles/styleConstant';
+//css
+const Styles = styleConstant.chooseLine;
 
 function InitialBody(){
   document.body.style.marginLeft = "0px";

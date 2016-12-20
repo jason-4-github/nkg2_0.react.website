@@ -36,17 +36,13 @@ const CheckTabs = ( props ) => {
   xxx.OutputNGCount = 5677;
   xxx.sDateYMD = '2016-12-13';
   tmpData.push(xxx);
-  console.log(tmpData)
 
   switch (props.pageName) {
     case "Output":
-    console.log('Enter Output')
       return (<Output data={tmpData} />) ;
     case "Downtime":
-    console.log('Enter Downtime')
       return (props.data === undefined ? <div  children={dataTrasfer}/> : <Downtime data={props.data} />) ;
     case "Alarm":
-    console.log('Enter Alarm')
       return (props.data === undefined ? <div  children={dataTrasfer}/> : <Alarm data={props.data} />) ;
     default:
       return (<defaultCharts data={props.data} />) ;

@@ -11,18 +11,15 @@ import Information2 from '../../components/TabContentCards/Information2';
 import DataForm from '../../components/TabContentCards/DataForm';
 import ImgCard from '../../components/TabContentCards/ImgCard';
 import {GetFromApi} from '../../actions/contactApi';
-
-const Styles={
-  twoCardsStyle:{
-    width:'94%',
-  },
-}
+import { styleConstant } from '../../styles/styleConstant';
+//css
+const Styles = styleConstant.cardContainer;
 
 const SummaryContent = (props) => {
   const { InfoData, tableData, lineName } = props.Data;
   return(
     <Row>
-      <Row style={Styles.twoCardsStyle}>
+      <Row style={Styles}>
         <Col xs={12} sm={12} md={6} lg={6}>
           <Information InfoData={ InfoData } lineName={ lineName }/>
         </Col>

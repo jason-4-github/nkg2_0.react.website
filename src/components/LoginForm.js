@@ -4,20 +4,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import { browserHistory } from 'react-router';
 
-const Styles = {
-  btnStyle:{
-    margin: 12,
-    right: '20px',
-  },
-  cardHeader:{
-    backgroundColor:'#26a69a',
-    textAlign:'center',
-    padding:'10px'
-  },
-  underlineStyle:{
-    borderColor: '#9e9fa1',
-  }
-}
+import { styleConstant } from '../styles/styleConstant';
+//css
+const Styles = styleConstant.loginForm;
 
 class LoginForm extends React.Component {
   render(){

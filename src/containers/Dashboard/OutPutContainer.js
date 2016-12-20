@@ -10,17 +10,14 @@ import DateSelect from '../../components/TabContentCards/DateSelect';
 import DataForm from '../../components/TabContentCards/DataForm';
 import FilterChoose from '../../components/TabContentCards/FilterChoose';
 import { PostToApi } from '../../actions/contactApi';
-
-const Styles={
-  historyFilterStyle:{
-    width:'94%',
-  },
-}
+import { styleConstant } from '../../styles/styleConstant';
+//css
+const Styles = styleConstant.cardContainer;
 
 const OutPutContent = (props) => {
   return(
     <Row>
-      <Row style={Styles.historyFilterStyle}>
+      <Row style={Styles}>
         <Col xs={12} sm={4} md={4} lg={4}>
           <DateSelect btn={ false } TwoOptions={ props.TwoOptions }
                       tapName={ 'output' }/>
@@ -54,7 +51,6 @@ class OutPutContainer extends React.Component{
   }
 
   render(){
-    console.log('oooooooooooooooooooooooooooo')
     const radioType = "none"
     const { Data, chartOData, RadioData } = this.props;
     return(

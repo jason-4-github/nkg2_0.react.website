@@ -3,6 +3,10 @@ import BgImg from '../../public/images/index-background.jpg';
 import { Row, Col } from 'react-bootstrap';
 
 import LoginForm from '../components/LoginForm';
+import { styleConstant } from '../styles/styleConstant';
+//css
+const Styles = styleConstant.indexContainer;
+
 
 function InitialBody(){
   document.body.style.marginLeft = "0px";
@@ -12,22 +16,6 @@ function InitialBody(){
 
   document.getElementById('app').style.height = '100vh';
   document.getElementById('app').style.backgroundColor = 'rgba(0,0,0,0.4)';
-}
-
-const Styles = {
-  titleStyle: {
-    fontSize: '100px',
-    fontWeight: '800',
-    textAlign: 'center',
-    color:'black',
-  },
-  formStyle: {
-    border: 'solid',
-    borderColor: '#26a69a',
-    paddingRight: '0px',
-    paddingLeft: '0px',
-    alignItems:'center'
-  },
 }
 
 //document.getElementById('app').style.margin = "-8px";

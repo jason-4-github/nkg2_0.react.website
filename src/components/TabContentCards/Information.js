@@ -4,11 +4,9 @@ import { Card, CardTitle, CardText } from 'material-ui/Card';
 import {Table, tbody, tr, td} from 'react-bootstrap';
 import moment from 'moment';
 
-const Styles={
-  cardStyle:{
-    fontFamily: 'Roboto Mono, monospace',
-  }
-}
+import { styleConstant } from '../../styles/styleConstant';
+//css
+const Styles = styleConstant.fontStyle;
 
 const InfoTitle = ['Status','Time','Line Name'];
 const OverviewTitle = ['Status','Time','Line Name', 'Actual Output'];
@@ -52,7 +50,7 @@ const Content = (props) => {
   num = 0 ;
 
   return(
-    <Card style={Styles.cardStyle}>
+    <Card style={Styles}>
       <CardTitle title="Information" />
       <hr />
       <CardText>

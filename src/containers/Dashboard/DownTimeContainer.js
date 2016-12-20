@@ -9,17 +9,15 @@ import Charts from '../../components/TabContentCards/Charts';
 import DataForm from '../../components/TabContentCards/DataForm';
 import DateSelect from '../../components/TabContentCards/DateSelect';
 import { PostToApi } from '../../actions/contactApi';
+import { styleConstant } from '../../styles/styleConstant';
+//css
+const Styles = styleConstant.cardContainer;
 
-const Styles={
-  CardsStyle:{
-    width:'94%',
-  },
-}
 
 const DownTimeContent=(props) => {
   return(
     <Row>
-      <Row style={Styles.CardsStyle}>
+      <Row style={Styles}>
         <Col xs={12} sm={12} md={12} lg={12}>
           <DateSelect btn={ true } TwoOptions={props.TwoOptions} tapName={'downtime'}/>
         </Col>

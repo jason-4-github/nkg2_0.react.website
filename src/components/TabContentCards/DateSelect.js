@@ -11,12 +11,9 @@ import { connect } from 'react-redux';
 
 import QueryBtn from './QueryBtn';
 import { GetFilterData, DatePickerData } from '../../actions/DashboardBtnAction';
-
-const Styles={
-  cardStyle: {
-    marginTop: "20px",
-  }
-};
+import { styleConstant } from '../../styles/styleConstant';
+//css
+const Styles = styleConstant.cardStyle;
 
 const BtnShow=(props) => {
   switch (props.Querybtn) {
@@ -56,7 +53,7 @@ class DateSelect extends React.Component {
   render() {
     return (
       <div>
-        <Card style={ Styles.cardStyle }>
+        <Card style={ Styles }>
           <CardTitle title="History" />
           <hr/>
           <CardText>

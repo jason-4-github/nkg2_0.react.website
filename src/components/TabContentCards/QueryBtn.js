@@ -8,14 +8,10 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 
-import {PostToApi} from '../../actions/contactApi';
-
-const Styles = {
-  btnStyle:{
-    margin: 12,
-    right: '20px',
-  }
-};
+import { PostToApi } from '../../actions/contactApi';
+import { styleConstant } from '../../styles/styleConstant';
+//css
+const Styles = styleConstant.queryBtn;
 
 class QueryBtn extends React.Component{
 

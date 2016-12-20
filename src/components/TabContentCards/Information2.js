@@ -3,13 +3,10 @@ import _ from 'lodash';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import {Table, tbody, tr, td} from 'react-bootstrap';
 
-const Styles={
-  cardStyle:{
-    fontFamily: 'Roboto Mono, monospace',
-  }
-}
-
 import {formatFloat} from '../../configure/commonFun';
+import { styleConstant } from '../../styles/styleConstant';
+//css
+const Styles = styleConstant.fontStyle;
 
 const productTitle = ['Actual Iutput','Actual Output','NG Count','Yield Rate'];
 
@@ -57,7 +54,7 @@ const Content = (props) => {
     num = 0 ;
   }
   return(
-    <Card style={Styles.cardStyle}>
+    <Card style={Styles}>
       { tabName ? <CardTitle title="Manpower" /> : <CardTitle title="Product" /> }
       <hr />
       <CardText>

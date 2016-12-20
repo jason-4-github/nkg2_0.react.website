@@ -5,16 +5,9 @@ import { connect } from 'react-redux';
 import { Row } from 'react-bootstrap';
 
 import { ThrowFilterData } from '../../actions/DashboardBtnAction';
-
-const Styles={
-  radioButton: {
-    marginBottom: 16,
-    width: '150px'
-  },
-  cardStyle: {
-    marginTop:"20px",
-  }
-};
+import { styleConstant } from '../../styles/styleConstant';
+//css
+const Styles = styleConstant.filterChoose;
 
 class FilterChoose extends React.Component{
   constructor(props){
