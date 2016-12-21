@@ -9,9 +9,9 @@ import React from 'react';
 import { ComposedChart, Line, Bar, XAxis, ResponsiveContainer,
           YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie,Cell } from 'recharts';
 import _ from 'lodash';
-import {Card, CardText} from 'material-ui/Card';
+import { Card, CardText } from 'material-ui/Card';
 
-import {formatFloat} from '../../configure/commonFun';
+import { formatFloat } from '../../configure/commonFun';
 
 const Styles = {
   width: 600,
@@ -25,27 +25,18 @@ const Styles = {
 };
 
 const CheckTabs = ( props ) => {
-  let tmpData = [];
-  let yyy = {}, xxx = {};
+
   let dataTrasfer = 'Ooops! Something wrong here, There is no data on Chart to show.';
-  yyy.OutputOKCount = 5023;
-  yyy.OutputNGCount = 6077;
-  yyy.sDateYMD = '2016-12-12';
-  tmpData.push(yyy);
-  xxx.OutputOKCount = 4099;
-  xxx.OutputNGCount = 5677;
-  xxx.sDateYMD = '2016-12-13';
-  tmpData.push(xxx);
 
   switch (props.pageName) {
     case "Output":
-      return (<Output data={tmpData} />) ;
+      return (props.data === undefined ? <div children={dataTrasfer}/> : <Output data={props.data} />) ;
     case "Downtime":
-      return (props.data === undefined ? <div  children={dataTrasfer}/> : <Downtime data={props.data} />) ;
+      return (props.data === undefined ? <div children={dataTrasfer}/> : <Downtime data={props.data} />) ;
     case "Alarm":
-      return (props.data === undefined ? <div  children={dataTrasfer}/> : <Alarm data={props.data} />) ;
+      return (props.data === undefined ? <div children={dataTrasfer}/> : <Alarm data={props.data} />) ;
     default:
-      return (<defaultCharts data={props.data} />) ;
+      return (<div children={dataTrasfer}/>) ;
   }
 };
 
@@ -81,11 +72,7 @@ const Output = (data) => {
   });
 
   _.times(countXNum, function(i){
-    if(chooseName === 'hour'){
-      innerObject.name = i ;
-    }else{
-      innerObject.name = i + 1 ;
-    }
+    innerObject.name = (chooseName === 'hour' ? i : i +1 );
     innerObject.Output = 0 ;
     innerObject.YieldRate = 0 ;
     if( (drawData[i] !== undefined && drawData[i].name !== (i+1)) && chooseName === 'day'){
@@ -109,8 +96,8 @@ const Output = (data) => {
         <Tooltip/>
         <Legend/>
         <CartesianGrid stroke='#f5f5f5'/>
-        <Bar isAnimationActive={false} yAxisId="left" dataKey='Output' barCategoryGap={'90%'} fill='rgb(194, 53, 49)'/>
-        <Line isAnimationActive={false} yAxisId="right"  dataKey='YieldRate' stroke='rgb(47, 69, 84)'/>
+        <Bar yAxisId="left" dataKey='Output' barCategoryGap={'90%'} fill='rgb(194, 53, 49)'/>
+        <Line yAxisId="right"  dataKey='YieldRate' stroke='rgb(47, 69, 84)'/>
       </ComposedChart>
     </ResponsiveContainer>
   );
@@ -136,10 +123,10 @@ const Downtime = (data) => {
 
   return(
   <ResponsiveContainer width="100%" minHeight={400}>
-    <PieChart width={800} height={400} >
-      <Pie  data={drawData}
-            cx={200}
-            cy={150}
+    <PieChart >
+      <Pie data={drawData}
+            cx="50%"
+            cy="50%"
             innerRadius={0}
             outerRadius={100}
             fill="#82ca9d"
@@ -165,13 +152,14 @@ const Alarm = (data) => {
       innerObject = {};
   });
 
+  //XXX(Jason Hsu): It seems that ResponsiveContainer will make setState error.
   return(
     <ResponsiveContainer width="100%" minHeight={300}>
       <ComposedChart width={Styles.width} height={Styles.height} data={drawData}
           margin={Styles.margin}>
         <XAxis dataKey="name" />
-        <YAxis yAxisId="left" label="Total-Output" orientation="left" />
-        <YAxis yAxisId="right" label="Yield-Rate(%)" orientation="right" />
+        <YAxis yAxisId="left" label="Alarm/Idle_Time(s)" orientation="left" />
+        <YAxis yAxisId="right" label="Count" orientation="right" />
         <Tooltip/>
         <Legend/>
         <CartesianGrid stroke='#f5f5f5'/>

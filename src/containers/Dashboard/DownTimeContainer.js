@@ -3,8 +3,6 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
-// import { Charts, DataForm, DateSelect,
-//           QueryBtn } from '../../components/TabContentCards';
 import Charts from '../../components/TabContentCards/Charts';
 import DataForm from '../../components/TabContentCards/DataForm';
 import DateSelect from '../../components/TabContentCards/DateSelect';
@@ -41,12 +39,12 @@ class DownTimeContainer extends React.Component{
   }
 
   render(){
-    const { Data, chartDData } = this.props;
+    const { Data, chartData } = this.props;
     return(
       <DownTimeContent
         Data={Data}
         TwoOptions={false}
-        chartData={chartDData} />
+        chartData={chartData} />
     );
   }
 };

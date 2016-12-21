@@ -1,10 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
-// import { bindActionCreators } from 'redux'
 
-// import { Charts, DataForm, DateSelect,
-//           QueryBtn } from '../../components/TabContentCards';
 import Charts from '../../components/TabContentCards/Charts';
 import DataForm from '../../components/TabContentCards/DataForm';
 import DateSelect from '../../components/TabContentCards/DateSelect';
@@ -43,12 +40,12 @@ class AlarmContainer extends React.Component{
   }
 
   render(){
-    const { Data, isType, chartAData } = this.props;
+    const { Data, isType, chartData } = this.props;
     return(
       <AlarmContent
         Data={Data}
         isType={isType}
-        chartData={chartAData}
+        chartData={chartData}
         TwoOptions={false} />
     );
   }

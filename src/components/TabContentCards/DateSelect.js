@@ -1,7 +1,7 @@
 //*******************************************************
 //DateSelect ----- BtnShow
-//                |
-//Filter---------
+//              |
+//Filter--------
 //*******************************************************
 
 import React from 'react';
@@ -37,7 +37,7 @@ class DateSelect extends React.Component {
   handleDateValueChange(event, date){
     let formatdate=date.getFullYear() + "." +
                     (date.getMonth() + 1) + "." + date.getDate();
-    //change date-type to string-type
+                    
     this.setState({
       dateData: formatdate ,
     });

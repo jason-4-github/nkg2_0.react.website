@@ -3,9 +3,6 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
-// import { Information, Information2, DataForm,
-//           ImgCard } from '../../components/TabContentCards';
-
 import Information from '../../components/TabContentCards/Information';
 import Information2 from '../../components/TabContentCards/Information2';
 import DataForm from '../../components/TabContentCards/DataForm';

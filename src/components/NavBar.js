@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import { SideMenuControl } from '../actions/DashboardBtnAction';
 
 const NavbarStyle = {
-    BgColor: {
-      backgroundColor: '#EDEDED',
-      color: '#5A738E',
-    }
+  BgColor: {
+    backgroundColor: '#EDEDED',
+    color: '#5A738E',
+  }
 };
 
 var Title = (
@@ -25,11 +25,7 @@ class Navbar extends React.Component {
     e.preventDefault();
     const { SideMenuControl, OpenClose } = this.props;
     SideMenuControl();
-    if(OpenClose){
-      document.body.style.marginLeft = "0px";
-    }else{
-      document.body.style.marginLeft = "200px";
-    }
+    document.body.style.marginLeft = ( OpenClose ? "0px" : "200px" );
   }
 
   render(){

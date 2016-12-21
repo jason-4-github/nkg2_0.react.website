@@ -10,17 +10,8 @@ import { styleConstant } from '../../styles/styleConstant';
 const Styles = styleConstant.filterChoose;
 
 class FilterChoose extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={
-      radioValue: 'Day',
-    };
-  };
 
   handleRadioValueChange(event, value){
-    this.setState({
-      radioValue: value
-    });
     const { ThrowFilterData } = this.props;
     ThrowFilterData(value);
   };

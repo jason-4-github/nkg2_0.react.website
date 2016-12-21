@@ -7,11 +7,11 @@
 //*******************************************************
 
 import React from 'react';
-import {Card, CardText} from 'material-ui/Card';
-import {Table, thead, tbody, th, tr, td} from 'react-bootstrap';
+import { Card, CardText } from 'material-ui/Card';
+import { Table, thead, tbody, th, tr, td } from 'react-bootstrap';
 import _ from 'lodash';
 
-import {processTimeDigit,formatFloat} from '../../configure/commonFun';
+import { processTimeDigit,formatFloat } from '../../configure/commonFun';
 import { styleConstant } from '../../styles/styleConstant';
 //css
 const Styles = styleConstant.dataForm;

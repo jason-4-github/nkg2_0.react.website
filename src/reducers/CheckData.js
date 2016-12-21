@@ -48,12 +48,10 @@ export const ChartContent = ( state = {} , action ) => {
     //Todo request
     case GET_CHARTDATA_SUCCESS:
       return {
-        ...state,
         ...action
       };
     case GET_CHARTDATA_FAILURE:
       return {
-        ...state,
         ...action
       };
     default:

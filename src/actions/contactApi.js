@@ -83,22 +83,10 @@ return dispatch => {
     .then(function(data){
       console.log("request success",data)
       actionName = actionName.concat('SUCCESS')
-      if(tabsName === 'output'){
       dispatch({
         type: actionName,
-        chartOData: data
+        chartData: data
       });
-    }else if(tabsName === 'downtime'){
-      dispatch({
-        type: actionName,
-        chartDData: data
-      });
-    }else if(tabsName === 'alarm'){
-      dispatch({
-        type: actionName,
-        chartAData: data
-      });
-    }
     }).catch(function(error) {
       console.log('request failed', error)
       actionName = actionName.concat('FAILURE')
@@ -149,15 +137,9 @@ export const GetFromApi = (tabsName, lineName, typeName='') =>{
       .catch(function(error) {
         console.log("Get failure",error)
         actionName = actionName.concat('FAILURE')
-        if(typeName === ''){
-          dispatch({
-            type: actionName,
-          });
-        }else{
-          dispatch({
-            type: actionName,
-          });
-        }
+        dispatch({
+          type: actionName,
+        });
       });
   };
 };

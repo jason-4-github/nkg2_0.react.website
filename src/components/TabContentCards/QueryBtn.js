@@ -15,7 +15,7 @@ const Styles = styleConstant.queryBtn;
 
 class QueryBtn extends React.Component{
 
-  Test(event){
+  btnClick(event){
     const {PostToApi, tapName, date, RadioData} = this.props;
     console.log(this.props)
     let outputTransNum;
@@ -51,7 +51,7 @@ class QueryBtn extends React.Component{
           label="Query"
           primary={ true }
           style={ Styles.btnStyle }
-          onClick={this.Test.bind(this)}
+          onClick={this.btnClick.bind(this)}
         />
       </div>
     );

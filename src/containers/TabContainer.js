@@ -11,10 +11,7 @@ class TabsContent extends React.Component {
     getAllInfo();
   }
 
-  componentWillUpdate() {
-    let { getAllInfo } = this.props;
-    getAllInfo();
-  }
+
   render(){
     const { params, data } = this.props;
     const { line } = params;

@@ -3,8 +3,6 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
-// import { Charts, DataForm, DateSelect,
-//           FilterChoose, QueryBtn } from '../../components/TabContentCards';
 import Charts from '../../components/TabContentCards/Charts';
 import DateSelect from '../../components/TabContentCards/DateSelect';
 import DataForm from '../../components/TabContentCards/DataForm';
@@ -52,12 +50,12 @@ class OutPutContainer extends React.Component{
 
   render(){
     const radioType = "none"
-    const { Data, chartOData, RadioData } = this.props;
+    const { Data, chartData, RadioData } = this.props;
     return(
       <OutPutContent
         Data={Data}
         TwoOptions={true}
-        chartData={ chartOData }
+        chartData={ chartData }
         RadioData={ RadioData? RadioData : radioType } />
     );
   }
@@ -69,8 +67,6 @@ const mapStateToProps = (state) => {
     ...state.ChartContent,
   };
 };
-
-// export default OutPutContainer;
 
 export default connect(
   mapStateToProps,
