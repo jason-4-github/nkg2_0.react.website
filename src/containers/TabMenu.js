@@ -4,8 +4,6 @@ import _ from 'lodash';
 import { browserHistory } from 'react-router';
 
 import MenuName from '../configure/menuName.json';
-//import { OverViewContainer, SummaryContainer, OutPutContainer,
-//         DownTimeContainer, AlarmContainer } from './Dashboard';
 import OverViewContainer from './Dashboard/OverViewContainer';
 import SummaryContainer from './Dashboard/SummaryContainer';
 import OutPutContainer from './Dashboard/OutPutContainer';

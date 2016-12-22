@@ -33,6 +33,7 @@ const Options = (props) => {
     });
   });
 
+  //Change SideMenu Title
   let titleName ;
   if(lineName === 'wd_ga'){
     titleName = 'WD GA LINE';

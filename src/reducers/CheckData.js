@@ -45,7 +45,6 @@ export const TableContent = ( state = {} , action ) => {
 
 export const ChartContent = ( state = {} , action ) => {
   switch(action.type){
-    //Todo request
     case GET_CHARTDATA_SUCCESS:
       return {
         ...action
