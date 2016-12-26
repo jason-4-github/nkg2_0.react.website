@@ -6,23 +6,27 @@ import { Row, Col } from 'react-bootstrap';
 import Charts from '../../components/TabContentCards/Charts';
 import DataForm from '../../components/TabContentCards/DataForm';
 import DateSelect from '../../components/TabContentCards/DateSelect';
-import { PostToApi } from '../../actions/contactApi';
+import { postToApi } from '../../actions/contactApi';
 import { styleConstant } from '../../styles/styleConstant';
+
 //css
 const Styles = styleConstant.cardContainer;
 
-
-const DownTimeContent=(props) => {
-  return(
+// TODO(S.C.) => modify TwoOptions, PageName, Data to twoOptions, pageName, data
+const DownTimeContent = (props) => {
+  return (
     <Row>
       <Row style={Styles}>
         <Col xs={12} sm={12} md={12} lg={12}>
-          <DateSelect btn={ true } TwoOptions={props.TwoOptions} tapName={'downtime'}/>
+          <DateSelect
+            btn={ true }
+            TwoOptions={ props.TwoOptions }
+            tapName={'downtime'}/>
         </Col>
       </Row>
       <Row>
         <Col xs={12} sm={12} md={6} lg={6}>
-          <Charts PageName={"Downtime"} data={ props.chartData } />
+          <Charts PageName={ "Downtime" } data={ props.chartData } />
         </Col>
         <Col xs={12} sm={12} md={6} lg={6}>
           <DataForm Data={ props.chartData } tapName={'downtime'} />
@@ -32,31 +36,31 @@ const DownTimeContent=(props) => {
   );
 };
 
-class DownTimeContainer extends React.Component{
-  componentDidMount(){
-    const { PostToApi, lineName } = this.props;
-    PostToApi('downtime',lineName);
+class DownTimeContainer extends React.Component {
+  componentDidMount() {
+    const { postToApi, lineName } = this.props;
+    postToApi('downtime',lineName);
   }
 
-  render(){
+  render() {
     const { Data, chartData } = this.props;
-    return(
+    return (
       <DownTimeContent
-        Data={Data}
-        TwoOptions={false}
-        chartData={chartData} />
+        Data={ Data }
+        TwoOptions={ false }
+        chartData={ chartData } />
     );
   }
 };
 
 const mapStateToProps = (state) => {
-  return{
+  return {
     ...state.getData,
     ...state.ChartContent,
   };
 };
 
-export default connect(
+export default connect (
   mapStateToProps,
-  {PostToApi}
+  { postToApi }
 )(DownTimeContainer);

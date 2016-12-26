@@ -5,28 +5,26 @@ import TabMenu from './TabMenu';
 import { getAllInfo } from '../actions';
 
 class TabsContent extends React.Component {
-
-  componentWillMount(){
+  componentWillMount() {
     let { getAllInfo } = this.props;
     getAllInfo();
   }
-
-  render(){
+  render() {
     const { params, data } = this.props;
     const { line } = params;
-    return(
+    return (
       <TabMenu TableData={ data } lineName={ line }/>
     );
   }
-}
+};
 
 const mapStateToProps = (state) => {
-  return{
+  return {
     ...state.LoadData,
   };
 };
 
-export default connect(
+export default connect (
   mapStateToProps,
-  {getAllInfo}
-)(TabsContent)
+  { getAllInfo }
+)(TabsContent);

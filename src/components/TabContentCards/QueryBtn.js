@@ -1,5 +1,5 @@
 //*******************************************************
-//QueryBtn -- Onclick --Output 4 types --|--PostToApi
+//QueryBtn -- Onclick --Output 4 types --|--postToApi
 //                  | --Downtime       --|
 //                  | --Alarm          --|
 //*******************************************************
@@ -8,7 +8,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 
-import { PostToApi } from '../../actions/contactApi';
+import { postToApi } from '../../actions/contactApi';
 import { styleConstant } from '../../styles/styleConstant';
 //css
 const Styles = styleConstant.queryBtn;
@@ -16,7 +16,7 @@ const Styles = styleConstant.queryBtn;
 class QueryBtn extends React.Component{
 
   btnClick(event){
-    const {PostToApi, tapName, date, RadioData} = this.props;
+    const {postToApi, tapName, date, RadioData} = this.props;
     console.log(this.props)
     let outputTransNum;
     switch (RadioData) {
@@ -37,9 +37,9 @@ class QueryBtn extends React.Component{
     }
 
     if(tapName === 'output'){
-      PostToApi(tapName,'wd_ga', outputTransNum, date);
+      postToApi(tapName,'wd_ga', outputTransNum, date);
     }else{
-      PostToApi(tapName,'wd_ga', '', date);
+      postToApi(tapName,'wd_ga', '', date);
     }
 
   }
@@ -67,5 +67,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  {PostToApi}
+  {postToApi}
 )(QueryBtn);

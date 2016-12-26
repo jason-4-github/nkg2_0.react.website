@@ -86,7 +86,7 @@ export const styleConstant = {
   cardContainer: {
     width:'94%',
   },
-  chooseLine: {
+  chooseLineContainer: {
     titleStyle: {
       textAlign: 'center',
       fontSize: '50px',

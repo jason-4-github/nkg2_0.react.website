@@ -10,6 +10,7 @@ import OutPutContainer from './Dashboard/OutPutContainer';
 import DownTimeContainer from './Dashboard/DownTimeContainer';
 import AlarmContainer from './Dashboard/AlarmContainer';
 import { styleConstant } from '../styles/styleConstant';
+
 //css
 const styles = styleConstant.tabMenu;
 
@@ -17,17 +18,17 @@ const ChangeTabsContent = (props) => {
   const { lineName, TableData, name } = props;
   switch (name) {
     case "Output":
-      return(<OutPutContainer Data={TableData} lineName={lineName}/>);
+      return (<OutPutContainer Data={TableData} lineName={lineName} />);
     case "Summary":
-      return(<SummaryContainer Data={TableData} lineName={lineName}/>);
+      return (<SummaryContainer Data={TableData} lineName={lineName} />);
     case "Downtime":
-      return(<DownTimeContainer Data={TableData} lineName={lineName}/>);
+      return (<DownTimeContainer Data={TableData} lineName={lineName} />);
     case "Alarm":
-      return(<AlarmContainer Data={TableData} lineName={lineName}/>);
+      return (<AlarmContainer Data={TableData} lineName={lineName} />);
     case "Overview":
-      return(<OverViewContainer Data={TableData} lineName={lineName}/>);
+      return (<OverViewContainer Data={TableData} lineName={lineName} />);
     default:
-      return(<div />);
+      return (<div />);
   }
 };
 
@@ -44,24 +45,28 @@ const Options = (props) => {
   tmpName = firstPath;
 
   //construct tabContent
-  _.map(MenuName, function(value){
-    _.map(value.Dashboard, function(innervalue, j){
+  _.map(MenuName, function(value) {
+    _.map(value.Dashboard, function(innervalue, j) {
       TabList.push(
         <Tab
           key={ j }
-          value={innervalue}
+          value={ innervalue }
           label={ innervalue }
           style={ styles.headColor }
-          onActive={() =>{
+          onActive={() => {
             browserHistory.push( '/Dashboard/'+innervalue + '/' + lineName );
             tmpName = innervalue;
           }}>
           <div style={ styles.contentStyle } >
-            <h2 style={ styles.headline } > Dashboard - {innervalue} </h2>
+            <h2 style={ styles.headline } > Dashboard - { innervalue } </h2>
           </div>
           <div style={ styles.contentStyle }>
-            {tmpName === innervalue ?
-              <ChangeTabsContent TableData={TableData} name={tmpName} lineName={lineName} /> :
+            {
+              tmpName === innervalue ?
+              <ChangeTabsContent
+                TableData={ TableData }
+                name={ tmpName }
+                lineName={ lineName } /> :
               <div />
             }
           </div>
@@ -69,22 +74,24 @@ const Options = (props) => {
       );
     });
   });
-  return(
-    <Tabs value={firstPath}>
-      {TabList}
+  return (
+    <Tabs value={ firstPath }>
+      { TabList }
     </Tabs>
   );
 };
 
-class TabMenu extends React.Component{
+class TabMenu extends React.Component {
   render() {
     const { TableData, lineName } = this.props;
-    return(
+    return (
       <div>
-        <Options TableData={TableData} lineName={lineName}/>
+        <Options
+          TableData={ TableData }
+          lineName={ lineName } />
       </div>
     );
   }
 };
 
-export default TabMenu ;
+export default TabMenu;

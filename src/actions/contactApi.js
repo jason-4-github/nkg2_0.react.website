@@ -16,7 +16,7 @@ function parseJSON(response) {
   return response.json()
 }
 
-export const PostToApi = (tabsName, lineName, outputParam='', choseDate='') =>{
+export const postToApi = (tabsName, lineName, outputParam='', choseDate='') =>{
 
   let Data;
   switch(tabsName){
@@ -97,7 +97,7 @@ return dispatch => {
   };
 };
 
-export const GetFromApi = (tabsName, lineName, typeName='') =>{
+export const getFromApi = (tabsName, lineName, typeName='') =>{
   let url = '';
   let actionName = '';
 

@@ -1,9 +1,12 @@
 import React from 'react';
 
-class MobilePage extends React.Component{
-  render(){
-    return(<div>mibile Test Page</div>);
+// XXX(S.C.) => For testing the mobile rendering function
+class MobilePage extends React.Component {
+  render() {
+    return(
+      <div>mibile Test Page</div>
+    );
   }
 };
 
-export default MobilePage ;
+export default MobilePage;
