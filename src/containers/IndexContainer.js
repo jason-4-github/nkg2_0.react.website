@@ -1,12 +1,12 @@
 import React from 'react';
 import BgImg from '../../public/images/index-background.jpg';
 import { Row, Col } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
 
 import LoginForm from '../components/LoginForm';
 import { styleConstant } from '../styles/styleConstant';
 //css
 const Styles = styleConstant.indexContainer;
-
 
 function InitialBody(){
   document.body.style.marginLeft = "0px";
@@ -20,8 +20,15 @@ function InitialBody(){
 
 //document.getElementById('app').style.margin = "-8px";
 class IndexPage extends React.Component{
+  componentWillMount(){
+    if(document.body.clientWidth <= 980){
+      browserHistory.push( '/m' );
+    }else{
+      InitialBody();
+    }
+  }
+
   render(){
-    InitialBody();
     return(
       <div>
         <div style={{height:'20vh'}}/>

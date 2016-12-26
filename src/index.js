@@ -9,6 +9,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MainContainer from './containers/MainContainer';
 import TabMenu0 from './containers/TabMenu0';
 import IndexPage from './containers/IndexContainer';
+import MobilePage from './containers/MobilePage';
 import ChooseLine from './containers/ChooseLine';
 import configureStore from './store/configureStore';
 import TabContainer from './containers/TabContainer';
@@ -30,26 +31,27 @@ const routerSet = () => {
   return(
     <Router history={ history }>
       <Route path="/" component={IndexPage}/>
-        <Route path="/select-line" component={ChooseLine}/>
-        <Route path="/:line" component={MainContainer}>
-          <IndexRoute component={TabContainer}/>
-          <Route path="/Dashboard/:line" component={TabContainer}>
-            <IndexRoute component={OverViewContainer}/>
-            <Route path="/Dashboard/Overview/:line" component={OverViewContainer}/>
-            <Route path="/Dashboard/Summary/:line" component={SummaryContainer}/>
-            <Route path="/Dashboard/Output/:line" component={OutPutContainer}/>
-            <Route path="/Dashboard/Downtime/:line" component={DownTimeContainer}/>
-            <Route path="/Dashboard/Alarm/:line" component={AlarmContainer}/>
-          </Route>
-          <Route path="/ICT_1/:line" component={TabMenu0}/>
-          <Route path="/ICT_2/:line" component={TabMenu0}/>
-          <Route path="/ICT_1_CV/:line" component={TabMenu0}/>
-          <Route path="/ICT_2_CV/:line" component={TabMenu0}/>
-          <Route path="/Transfer_CV/:line" component={TabMenu0}/>
-          <Route path="/Buffer_CV/:line" component={TabMenu0}/>
-          <Route path="/Router_CV/:line" component={TabMenu0}/>
-          <Route path="/Change_Line/:line" component={TabMenu0}/>
+      <Route path="/m" component={MobilePage}/>
+      <Route path="/select-line" component={ChooseLine}/>
+      <Route path="/:line" component={MainContainer}>
+        <IndexRoute component={TabContainer}/>
+        <Route path="/Dashboard/:line" component={TabContainer}>
+          <IndexRoute component={OverViewContainer}/>
+          <Route path="/Dashboard/Overview/:line" component={OverViewContainer}/>
+          <Route path="/Dashboard/Summary/:line" component={SummaryContainer}/>
+          <Route path="/Dashboard/Output/:line" component={OutPutContainer}/>
+          <Route path="/Dashboard/Downtime/:line" component={DownTimeContainer}/>
+          <Route path="/Dashboard/Alarm/:line" component={AlarmContainer}/>
         </Route>
+        <Route path="/ICT_1/:line" component={TabMenu0}/>
+        <Route path="/ICT_2/:line" component={TabMenu0}/>
+        <Route path="/ICT_1_CV/:line" component={TabMenu0}/>
+        <Route path="/ICT_2_CV/:line" component={TabMenu0}/>
+        <Route path="/Transfer_CV/:line" component={TabMenu0}/>
+        <Route path="/Buffer_CV/:line" component={TabMenu0}/>
+        <Route path="/Router_CV/:line" component={TabMenu0}/>
+        <Route path="/Change_Line/:line" component={TabMenu0}/>
+      </Route>
     </Router>
   );
 };
